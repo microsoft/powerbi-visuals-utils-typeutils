@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "ES5",
+        "declaration": true,
+        "outFile": "./lib/index.js"
+    },
+    "files": [
+        "src/double.ts",
+        "src/prototype.ts",
+        "src/extensions/arrayExtensions.ts",
+        "src/extensions/enumExtensions.ts",
+        "src/numericSequence/numericSequenceRange.ts",
+        "src/numericSequence/numericSequence.ts",
+        "src/pixelConverter.ts",
+        "src/extensions/regExpExtensions.ts",
+        "src/extensions/stringExtensions.ts",
+        "src/extensions/logicExtensions.ts",
+        "src/jsonComparer.ts",
+        "src/textSizeDefaults.ts"
+    ]
+}
