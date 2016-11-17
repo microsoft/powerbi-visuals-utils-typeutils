@@ -51,6 +51,7 @@ module.exports = (config) => {
         reporters: ['progress'],
         singleRun: true,
         files: [
+            'node_modules/lodash/lodash.min.js',
             indexFile,
             recursivePathToTests
         ],

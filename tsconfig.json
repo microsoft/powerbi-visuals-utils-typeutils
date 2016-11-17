@@ -7,6 +7,8 @@
         "outFile": "./lib/index.js"
     },
     "files": [
+        "node_modules/powerbi-visuals-tools/templates/visuals/.api/v1.2.0/PowerBI-visuals.d.ts",
+        "node_modules/@types/lodash/index.d.ts",
         "src/double.ts",
         "src/prototype.ts",
         "src/extensions/arrayExtensions.ts",
@@ -18,6 +20,7 @@
         "src/extensions/stringExtensions.ts",
         "src/extensions/logicExtensions.ts",
         "src/jsonComparer.ts",
-        "src/textSizeDefaults.ts"
+        "src/textSizeDefaults.ts",
+        "src/valueType.ts"
     ]
 }

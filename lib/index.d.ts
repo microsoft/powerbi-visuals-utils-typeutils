@@ -457,3 +457,219 @@ declare module powerbi.extensibility.utils.type {
         function getScale(textSize: number): number;
     }
 }
+declare module powerbi.extensibility.utils.type {
+    import ValueTypeDescriptor = powerbi.ValueTypeDescriptor;
+    interface IValueTypeDescriptor extends ValueTypeDescriptor {
+        extendedType?: ExtendedType;
+    }
+    /** Describes a data value type, including a primitive type and extended type if any (derived from data category). */
+    class ValueType implements IValueTypeDescriptor {
+        private static typeCache;
+        private underlyingType;
+        private category;
+        private temporalType;
+        private geographyType;
+        private miscType;
+        private formattingType;
+        private enumType;
+        private scriptingType;
+        private variationTypes;
+        /** Do not call the ValueType constructor directly. Use the ValueType.fromXXX methods. */
+        constructor(type: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]);
+        /** Creates or retrieves a ValueType object based on the specified ValueTypeDescriptor. */
+        static fromDescriptor(descriptor: IValueTypeDescriptor): ValueType;
+        /** Advanced: Generally use fromDescriptor instead. Creates or retrieves a ValueType object for the specified ExtendedType. */
+        static fromExtendedType(extendedType: ExtendedType): ValueType;
+        /** Creates or retrieves a ValueType object for the specified PrimitiveType and data category. */
+        static fromPrimitiveTypeAndCategory(primitiveType: PrimitiveType, category?: string): ValueType;
+        /** Creates a ValueType to describe the given IEnumType. */
+        static fromEnum(enumType: IEnumType): ValueType;
+        /** Creates a ValueType to describe the given Variant type. */
+        static fromVariant(variantTypes: ValueType[]): ValueType;
+        /** Determines if the specified type is compatible from at least one of the otherTypes. */
+        static isCompatibleTo(type: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean;
+        /** Determines if the instance ValueType is convertable from the 'other' ValueType. */
+        isCompatibleFrom(other: ValueType): boolean;
+        /**
+         * Determines if the instance ValueType is equal to the 'other' ValueType
+         * @param {ValueType} other the other ValueType to check equality against
+         * @returns True if the instance ValueType is equal to the 'other' ValueType
+         */
+        equals(other: ValueType): boolean;
+        /** Gets the exact primitive type of this ValueType. */
+        primitiveType: PrimitiveType;
+        /** Gets the exact extended type of this ValueType. */
+        extendedType: ExtendedType;
+        /** Gets the data category string (if any) for this ValueType. */
+        categoryString: string;
+        /** Indicates whether the type represents text values. */
+        text: boolean;
+        /** Indicates whether the type represents any numeric value. */
+        numeric: boolean;
+        /** Indicates whether the type represents integer numeric values. */
+        integer: boolean;
+        /** Indicates whether the type represents Boolean values. */
+        bool: boolean;
+        /** Indicates whether the type represents any date/time values. */
+        dateTime: boolean;
+        /** Indicates whether the type represents duration values. */
+        duration: boolean;
+        /** Indicates whether the type represents binary values. */
+        binary: boolean;
+        /** Indicates whether the type represents none values. */
+        none: boolean;
+        /** Returns an object describing temporal values represented by the type, if it represents a temporal type. */
+        temporal: TemporalType;
+        /** Returns an object describing geographic values represented by the type, if it represents a geographic type. */
+        geography: GeographyType;
+        /** Returns an object describing the specific values represented by the type, if it represents a miscellaneous extended type. */
+        misc: MiscellaneousType;
+        /** Returns an object describing the formatting values represented by the type, if it represents a formatting type. */
+        formatting: FormattingType;
+        /** Returns an object describing the enum values represented by the type, if it represents an enumeration type. */
+        enum: IEnumType;
+        scripting: ScriptType;
+        /** Returns an array describing the variant values represented by the type, if it represents an Variant type. */
+        variant: ValueType[];
+    }
+    class ScriptType implements ScriptTypeDescriptor {
+        private underlyingType;
+        constructor(type: ExtendedType);
+        source: boolean;
+    }
+    class TemporalType implements TemporalTypeDescriptor {
+        private underlyingType;
+        constructor(type: ExtendedType);
+        year: boolean;
+        quarter: boolean;
+        month: boolean;
+        day: boolean;
+        paddedDateTableDate: boolean;
+    }
+    class GeographyType implements GeographyTypeDescriptor {
+        private underlyingType;
+        constructor(type: ExtendedType);
+        address: boolean;
+        city: boolean;
+        continent: boolean;
+        country: boolean;
+        county: boolean;
+        region: boolean;
+        postalCode: boolean;
+        stateOrProvince: boolean;
+        place: boolean;
+        latitude: boolean;
+        longitude: boolean;
+    }
+    class MiscellaneousType implements MiscellaneousTypeDescriptor {
+        private underlyingType;
+        constructor(type: ExtendedType);
+        image: boolean;
+        imageUrl: boolean;
+        webUrl: boolean;
+        barcode: boolean;
+    }
+    class FormattingType implements FormattingTypeDescriptor {
+        private underlyingType;
+        constructor(type: ExtendedType);
+        color: boolean;
+        formatString: boolean;
+        alignment: boolean;
+        labelDisplayUnits: boolean;
+        fontSize: boolean;
+        labelDensity: boolean;
+    }
+    /** Defines primitive value types. Must be consistent with types defined by server conceptual schema. */
+    enum PrimitiveType {
+        Null = 0,
+        Text = 1,
+        Decimal = 2,
+        Double = 3,
+        Integer = 4,
+        Boolean = 5,
+        Date = 6,
+        DateTime = 7,
+        DateTimeZone = 8,
+        Time = 9,
+        Duration = 10,
+        Binary = 11,
+        None = 12,
+        Variant = 13,
+    }
+    /** Defines extended value types, which include primitive types and known data categories constrained to expected primitive types. */
+    enum ExtendedType {
+        Numeric = 256,
+        Temporal = 512,
+        Geography = 1024,
+        Miscellaneous = 2048,
+        Formatting = 4096,
+        Scripting = 8192,
+        Null = 0,
+        Text = 1,
+        Decimal = 258,
+        Double = 259,
+        Integer = 260,
+        Boolean = 5,
+        Date = 518,
+        DateTime = 519,
+        DateTimeZone = 520,
+        Time = 521,
+        Duration = 10,
+        Binary = 11,
+        None = 12,
+        Variant = 13,
+        Years = 66048,
+        Years_Text = 66049,
+        Years_Integer = 66308,
+        Years_Date = 66054,
+        Years_DateTime = 66055,
+        Months = 131584,
+        Months_Text = 131585,
+        Months_Integer = 131844,
+        Months_Date = 131590,
+        Months_DateTime = 131591,
+        PaddedDateTableDates = 197127,
+        Quarters = 262656,
+        Quarters_Text = 262657,
+        Quarters_Integer = 262916,
+        Quarters_Date = 262662,
+        Quarters_DateTime = 262663,
+        DayOfMonth = 328192,
+        DayOfMonth_Text = 328193,
+        DayOfMonth_Integer = 328452,
+        DayOfMonth_Date = 328198,
+        DayOfMonth_DateTime = 328199,
+        Address = 6554625,
+        City = 6620161,
+        Continent = 6685697,
+        Country = 6751233,
+        County = 6816769,
+        Region = 6882305,
+        PostalCode = 6947840,
+        PostalCode_Text = 6947841,
+        PostalCode_Integer = 6948100,
+        StateOrProvince = 7013377,
+        Place = 7078913,
+        Latitude = 7144448,
+        Latitude_Decimal = 7144706,
+        Latitude_Double = 7144707,
+        Longitude = 7209984,
+        Longitude_Decimal = 7210242,
+        Longitude_Double = 7210243,
+        Image = 13109259,
+        ImageUrl = 13174785,
+        WebUrl = 13240321,
+        Barcode = 13305856,
+        Barcode_Text = 13305857,
+        Barcode_Integer = 13306116,
+        Color = 19664897,
+        FormatString = 19730433,
+        Alignment = 20058113,
+        LabelDisplayUnits = 20123649,
+        FontSize = 20189443,
+        LabelDensity = 20254979,
+        Enumeration = 26214401,
+        ScriptSource = 32776193,
+        SearchEnabled = 65541,
+    }
+}
