@@ -1,7 +1,7 @@
 # Microsoft Power BI visuals TypeUtils
 [![Build Status](https://travis-ci.org/Microsoft/powerbi-visuals-utils-typeutils.svg?branch=master)](https://travis-ci.org/Microsoft/powerbi-visuals-utils-typeutils) [![npm version](https://img.shields.io/npm/v/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils) [![npm](https://img.shields.io/npm/dm/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils)
 
-> Type utility interfaces for creating powerbi custom visuals
+> TypeUtils is a set of functions and classes in order to extend the basic types for Power BI custom visuals
 
 ## Usage
 Learn how to install and use the TypeUtils in your custom visuals:
