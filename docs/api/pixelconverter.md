@@ -44,6 +44,8 @@ PixelConverter.fromPoint(8);
 // returns: 33.33333333333333px
 ```
 
+You can take a look at the example code of the custom visual [here](https://github.com/Microsoft/powerbi-visuals-sankey/blob/4d544ea145b4e15006083a3610dfead3da5f61a4/src/visual.ts#L187).
+
 ## fromPointToPixel
 
 This function converts the provided point value to the pixel value.
