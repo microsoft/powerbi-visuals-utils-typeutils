@@ -150,7 +150,7 @@ Double.greaterWithPrecision(1, 0.995, 0.01);
 
 ## greaterOrEqualWithPrecision
 
-This function checks if the first value is greater of equal to the second value.
+This function checks if the first value is greater or equal to the second value.
 
 ```typescript
 function greaterOrEqualWithPrecision(x: number, y: number, precision?: number): boolean;
@@ -258,7 +258,7 @@ Double.roundToPrecision(596, 10);
 
 ## ensureInRange
 
-This function return a number that is between min and max.
+This function returns a number that is between min and max.
 
 ```typescript
 function ensureInRange(x: number, min: number, max: number): number;
@@ -294,7 +294,7 @@ Double.round(27.45);
 
 ## removeDecimalNoise
 
-This function the decimal noise.
+This function removes the decimal noise.
 
 ```typescript
 function removeDecimalNoise(value: number): number;
@@ -330,7 +330,7 @@ Double.isInteger(21.493000000000002);
 
 ## toIncrement
 
-This function increments the number by the provided number and return the rounded number.
+This function increments the number by the provided number and returns the rounded number.
 
 ```typescript
 function toIncrement(value: number, increment: number): number;
