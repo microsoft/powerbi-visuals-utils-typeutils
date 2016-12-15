@@ -21,8 +21,7 @@ npm install powerbi-visuals-utils-typeutils --save
 This command installs the package and adds a package as a dependency to your ```package.json```
 
 ## Including declarations to the build flow
-The package contains ```d.ts``` declarations file, it's necessary for TypeScript compiler and it helps to develop your visuals fast and confident. You should add the following files to the ```files``` property of ```tsconfig.json```:
-* ```node_modules/@types/lodash/index.d.ts```
+This package contains  the ```d.ts``` declaration file necessary for the TypeScript compiler. It assists in more efficient development of your visuals. You should add the following file to the ```files``` property of ```tsconfig.json```:
 * ```node_modules/powerbi-visuals-utils-typeutils/lib/index.d.ts```
 
 As a result you will have the following file structure:
@@ -30,7 +29,6 @@ As a result you will have the following file structure:
 {
   "compilerOptions": {...},
   "files": [
-    "node_modules/@types/lodash/index.d.ts",
     "node_modules/powerbi-visuals-utils-typeutils/lib/index.d.ts"
   ]
 }
