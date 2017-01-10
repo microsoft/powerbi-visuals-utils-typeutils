@@ -1,5 +1,5 @@
 # Microsoft Power BI visuals TypeUtils
-[![Build Status](https://travis-ci.org/Microsoft/powerbi-visuals-utils-typeutils.svg?branch=master)](https://travis-ci.org/Microsoft/powerbi-visuals-utils-typeutils) [![npm version](https://img.shields.io/npm/v/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils) [![npm](https://img.shields.io/npm/dm/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils)
+[![Build Status](https://travis-ci.org/Microsoft/powerbi-visuals-utils-typeutils.svg?branch=master)](https://travis-ci.org/Microsoft/powerbi-visuals-utils-typeutils) [![Coverage Status](https://coveralls.io/repos/github/Microsoft/powerbi-visuals-utils-typeutils/badge.svg?branch=master)](https://coveralls.io/github/Microsoft/powerbi-visuals-utils-typeutils?branch=master) [![npm version](https://img.shields.io/npm/v/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils) [![npm](https://img.shields.io/npm/dm/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils)
 
 > TypeUtils is a set of functions and classes in order to extend the basic types for Power BI custom visuals
 
