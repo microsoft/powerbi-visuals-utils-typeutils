@@ -2,7 +2,7 @@
  *  Power BI Visualizations
  *
  *  Copyright (c) Microsoft Corporation
- *  All rights reserved. 
+ *  All rights reserved.
  *  MIT License
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -11,14 +11,14 @@
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *   
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *   
- *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+ *
+ *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
@@ -27,7 +27,7 @@
 module powerbi.extensibility.utils.type {
 
     /**
-     * Module Double contains a set of constants and precision based utility methods 
+     * Module Double contains a set of constants and precision based utility methods
      * for dealing with doubles and their decimal garbage in the javascript.
      */
     export module Double {
@@ -53,7 +53,7 @@ module powerbi.extensibility.utils.type {
             1E-300, 1E-301, 1E-302, 1E-303, 1E-304, 1E-305, 1E-306, 1E-307, 1E-308, 1E-309, 1E-310, 1E-311, 1E-312, 1E-313, 1E-314, 1E-315, 1E-316, 1E-317, 1E-318, 1E-319, 1E-320, 1E-321, 1E-322, 1E-323, 1E-324];
 
         /**
-         * Returns powers of 10. 
+         * Returns powers of 10.
          * Unlike the Math.pow this function produces no decimal garbage.
          * @param exp Exponent.
          */
@@ -75,13 +75,13 @@ module powerbi.extensibility.utils.type {
             }
         }
 
-        /** 
+        /**
          * Returns the 10 base logarithm of the number.
          * Unlike Math.log function this produces integer results with no decimal garbage.
          * @param val Positive value or zero.
          */
         export function log10(val: number): number {
-            // Fast Log10() algorithm 
+            // Fast Log10() algorithm
             if (val > 1 && val < 1E16) {
                 if (val < 1E8) {
                     if (val < 1E4) {
@@ -210,13 +210,13 @@ module powerbi.extensibility.utils.type {
                 }
             }
             // JS Math provides only natural log function so we need to calc the 10 base logarithm:
-            // logb(x) = logk(x)/logk(b); 
+            // logb(x) = logk(x)/logk(b);
             let log10 = Math.log(val) / Double.LOG_E_10;
             return Double.floorWithPrecision(log10);
         }
 
         /**
-         * Returns a power of 10 representing precision of the number based on the number of meaningful decimal digits. 
+         * Returns a power of 10 representing precision of the number based on the number of meaningful decimal digits.
          * For example the precision of 56,263.3767 with the 6 meaningful decimal digit is 0.1.
          * @param x Value.
          * @param decimalDigits How many decimal digits are meaningfull.
@@ -239,7 +239,7 @@ module powerbi.extensibility.utils.type {
             return Double.pow10(precisionExp);
         }
 
-        /** 
+        /**
          * Checks if a delta between 2 numbers is less than provided precision.
          * @param x One value.
          * @param y Another value.
@@ -251,8 +251,8 @@ module powerbi.extensibility.utils.type {
             return x === y || Math.abs(x - y) < precision;
         }
 
-        /** 
-         * Checks if a first value is less than another taking 
+        /**
+         * Checks if a first value is less than another taking
          * into account the loose precision based equality.
          * @param x One value.
          * @param y Another value.
@@ -264,8 +264,8 @@ module powerbi.extensibility.utils.type {
             return x < y && Math.abs(x - y) > precision;
         }
 
-        /** 
-         * Checks if a first value is less or equal than another taking 
+        /**
+         * Checks if a first value is less or equal than another taking
          * into account the loose precision based equality.
          * @param x One value.
          * @param y Another value.
@@ -277,8 +277,8 @@ module powerbi.extensibility.utils.type {
             return x < y || Math.abs(x - y) < precision;
         }
 
-        /** 
-         * Checks if a first value is greater than another taking 
+        /**
+         * Checks if a first value is greater than another taking
          * into account the loose precision based equality.
          * @param x One value.
          * @param y Another value.
@@ -290,8 +290,8 @@ module powerbi.extensibility.utils.type {
             return x > y && Math.abs(x - y) > precision;
         }
 
-        /** 
-         * Checks if a first value is greater or equal to another taking 
+        /**
+         * Checks if a first value is greater or equal to another taking
          * into account the loose precision based equality.
          * @param x One value.
          * @param y Another value.
@@ -303,7 +303,7 @@ module powerbi.extensibility.utils.type {
             return x > y || Math.abs(x - y) < precision;
         }
 
-        /** 
+        /**
          * Floors the number unless it's withing the precision distance from the higher int.
          * @param x One value.
          * @param precision Precision value.
@@ -319,7 +319,7 @@ module powerbi.extensibility.utils.type {
             }
         }
 
-        /** 
+        /**
          * Ceils the number unless it's withing the precision distance from the lower int.
          * @param x One value.
          * @param precision Precision value.
@@ -335,7 +335,7 @@ module powerbi.extensibility.utils.type {
             }
         }
 
-        /** 
+        /**
          * Floors the number to the provided precision.
          * For example 234,578 floored to 1,000 precision is 234,000.
          * @param x One value.
@@ -351,7 +351,7 @@ module powerbi.extensibility.utils.type {
             return Math.floor(x / precision) * precision;
         }
 
-        /** 
+        /**
          * Ceils the number to the provided precision.
          * For example 234,578 floored to 1,000 precision is 235,000.
          * @param x One value.
@@ -367,8 +367,8 @@ module powerbi.extensibility.utils.type {
             return Math.ceil(x / precision) * precision;
         }
 
-        /** 
-         * Rounds the number to the provided precision. 
+        /**
+         * Rounds the number to the provided precision.
          * For example 234,578 floored to 1,000 precision is 235,000.
          * @param x One value.
          * @param precision Precision value.
@@ -390,7 +390,7 @@ module powerbi.extensibility.utils.type {
             return result;
         }
 
-        /** 
+        /**
          * Returns the value making sure that it's restricted to the provided range.
          * @param x One value.
          * @param min Range min boundary.
@@ -409,7 +409,7 @@ module powerbi.extensibility.utils.type {
             return x;
         }
 
-        /** 
+        /**
          * Rounds the value - this method is actually faster than Math.round - used in the graphics utils.
          * @param x Value to round.
          */
@@ -417,7 +417,7 @@ module powerbi.extensibility.utils.type {
             return (0.5 + x) << 0;
         }
 
-        /** 
+        /**
          * Projects the value from the source range into the target range.
          * @param value Value to project.
          * @param fromMin Minimum of the source range.
@@ -437,7 +437,7 @@ module powerbi.extensibility.utils.type {
             return projectedX;
         }
 
-        /** 
+        /**
          * Removes decimal noise.
          * @param value Value to be processed.
          */
@@ -445,7 +445,7 @@ module powerbi.extensibility.utils.type {
             return roundToPrecision(value, getPrecision(value));
         }
 
-        /** 
+        /**
          * Checks whether the number is integer.
          * @param value Value to be checked.
          */
@@ -467,7 +467,7 @@ module powerbi.extensibility.utils.type {
 
         /**
          * Overrides the given precision with defaults if necessary. Exported only for tests
-         * 
+         *
          * precision defined returns precision
          * x defined with y undefined returns twelve digits of precision based on x
          * x defined but zero with y defined; returns twelve digits of precision based on y
