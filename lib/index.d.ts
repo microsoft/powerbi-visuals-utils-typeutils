@@ -475,7 +475,7 @@ declare module powerbi.extensibility.utils.type {
         private scriptingType;
         private variationTypes;
         /** Do not call the ValueType constructor directly. Use the ValueType.fromXXX methods. */
-        constructor(type: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]);
+        constructor(underlyingType: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]);
         /** Creates or retrieves a ValueType object based on the specified ValueTypeDescriptor. */
         static fromDescriptor(descriptor: IValueTypeDescriptor): ValueType;
         /** Advanced: Generally use fromDescriptor instead. Creates or retrieves a ValueType object for the specified ExtendedType. */
@@ -487,7 +487,7 @@ declare module powerbi.extensibility.utils.type {
         /** Creates a ValueType to describe the given Variant type. */
         static fromVariant(variantTypes: ValueType[]): ValueType;
         /** Determines if the specified type is compatible from at least one of the otherTypes. */
-        static isCompatibleTo(type: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean;
+        static isCompatibleTo(typeDescriptor: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean;
         /** Determines if the instance ValueType is convertable from the 'other' ValueType. */
         isCompatibleFrom(other: ValueType): boolean;
         /**
@@ -527,19 +527,19 @@ declare module powerbi.extensibility.utils.type {
         /** Returns an object describing the formatting values represented by the type, if it represents a formatting type. */
         readonly formatting: FormattingType;
         /** Returns an object describing the enum values represented by the type, if it represents an enumeration type. */
-        readonly enum: IEnumType;
+        readonly enumeration: IEnumType;
         readonly scripting: ScriptType;
         /** Returns an array describing the variant values represented by the type, if it represents an Variant type. */
         readonly variant: ValueType[];
     }
     class ScriptType implements ScriptTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
+        constructor(underlyingType: ExtendedType);
         readonly source: boolean;
     }
     class TemporalType implements TemporalTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
+        constructor(underlyingType: ExtendedType);
         readonly year: boolean;
         readonly quarter: boolean;
         readonly month: boolean;
@@ -548,7 +548,7 @@ declare module powerbi.extensibility.utils.type {
     }
     class GeographyType implements GeographyTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
+        constructor(underlyingType: ExtendedType);
         readonly address: boolean;
         readonly city: boolean;
         readonly continent: boolean;
@@ -563,7 +563,7 @@ declare module powerbi.extensibility.utils.type {
     }
     class MiscellaneousType implements MiscellaneousTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
+        constructor(underlyingType: ExtendedType);
         readonly image: boolean;
         readonly imageUrl: boolean;
         readonly webUrl: boolean;
@@ -571,7 +571,7 @@ declare module powerbi.extensibility.utils.type {
     }
     class FormattingType implements FormattingTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
+        constructor(underlyingType: ExtendedType);
         readonly color: boolean;
         readonly formatString: boolean;
         readonly alignment: boolean;
