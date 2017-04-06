@@ -2,7 +2,7 @@
  *  Power BI Visualizations
  *
  *  Copyright (c) Microsoft Corporation
- *  All rights reserved. 
+ *  All rights reserved.
  *  MIT License
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -11,14 +11,14 @@
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *   
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *   
- *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+ *
+ *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
@@ -51,29 +51,29 @@ module powerbi.extensibility.utils.type {
         private variationTypes: ValueType[];
 
         /** Do not call the ValueType constructor directly. Use the ValueType.fromXXX methods. */
-        constructor(type: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]) {
-            this.underlyingType = type;
+        constructor(underlyingType: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]) {
+            this.underlyingType = underlyingType;
             this.category = category;
 
-            if (EnumExtensions.hasFlag(type, ExtendedType.Temporal)) {
-                this.temporalType = new TemporalType(type);
+            if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Temporal)) {
+                this.temporalType = new TemporalType(underlyingType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Geography)) {
-                this.geographyType = new GeographyType(type);
+            if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Geography)) {
+                this.geographyType = new GeographyType(underlyingType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Miscellaneous)) {
-                this.miscType = new MiscellaneousType(type);
+            if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Miscellaneous)) {
+                this.miscType = new MiscellaneousType(underlyingType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Formatting)) {
-                this.formattingType = new FormattingType(type);
+            if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Formatting)) {
+                this.formattingType = new FormattingType(underlyingType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Enumeration)) {
+            if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Enumeration)) {
                 this.enumType = enumType;
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Scripting)) {
-                this.scriptingType = new ScriptType(type);
+            if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Scripting)) {
+                this.scriptingType = new ScriptType(underlyingType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Variant)) {
+            if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Variant)) {
                 this.variationTypes = variantTypes;
             }
         }
@@ -178,8 +178,8 @@ module powerbi.extensibility.utils.type {
         }
 
         /** Determines if the specified type is compatible from at least one of the otherTypes. */
-        public static isCompatibleTo(type: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean {
-            let valueType = ValueType.fromDescriptor(type);
+        public static isCompatibleTo(typeDescriptor: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean {
+            let valueType = ValueType.fromDescriptor(typeDescriptor);
             for (let otherType of otherTypes) {
                 let otherValueType = ValueType.fromDescriptor(otherType);
 
@@ -294,7 +294,7 @@ module powerbi.extensibility.utils.type {
         }
 
         /** Returns an object describing the enum values represented by the type, if it represents an enumeration type. */
-        public get enum(): IEnumType {
+        public get enumeration(): IEnumType {
             return this.enumType;
         }
 
@@ -311,8 +311,8 @@ module powerbi.extensibility.utils.type {
     export class ScriptType implements ScriptTypeDescriptor {
         private underlyingType: ExtendedType;
 
-        constructor(type: ExtendedType) {
-            this.underlyingType = type;
+        constructor(underlyingType: ExtendedType) {
+            this.underlyingType = underlyingType;
         }
 
         public get source(): boolean {
@@ -323,8 +323,8 @@ module powerbi.extensibility.utils.type {
     export class TemporalType implements TemporalTypeDescriptor {
         private underlyingType: ExtendedType;
 
-        constructor(type: ExtendedType) {
-            this.underlyingType = type;
+        constructor(underlyingType: ExtendedType) {
+            this.underlyingType = underlyingType;
         }
 
         public get year(): boolean {
@@ -347,8 +347,8 @@ module powerbi.extensibility.utils.type {
     export class GeographyType implements GeographyTypeDescriptor {
         private underlyingType: ExtendedType;
 
-        constructor(type: ExtendedType) {
-            this.underlyingType = type;
+        constructor(underlyingType: ExtendedType) {
+            this.underlyingType = underlyingType;
         }
 
         public get address(): boolean {
@@ -389,8 +389,8 @@ module powerbi.extensibility.utils.type {
     export class MiscellaneousType implements MiscellaneousTypeDescriptor {
         private underlyingType: ExtendedType;
 
-        constructor(type: ExtendedType) {
-            this.underlyingType = type;
+        constructor(underlyingType: ExtendedType) {
+            this.underlyingType = underlyingType;
         }
 
         public get image(): boolean {
@@ -410,8 +410,8 @@ module powerbi.extensibility.utils.type {
     export class FormattingType implements FormattingTypeDescriptor {
         private underlyingType: ExtendedType;
 
-        constructor(type: ExtendedType) {
-            this.underlyingType = type;
+        constructor(underlyingType: ExtendedType) {
+            this.underlyingType = underlyingType;
         }
 
         public get color(): boolean {

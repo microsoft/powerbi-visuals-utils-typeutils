@@ -6,11 +6,11 @@ declare module powerbi.extensibility.utils.type {
     module Double {
         const MIN_VALUE: number;
         const MAX_VALUE: number;
-        const MIN_EXP: number;
-        const MAX_EXP: number;
-        const EPSILON: number;
-        const DEFAULT_PRECISION: number;
-        const DEFAULT_PRECISION_IN_DECIMAL_DIGITS: number;
+        const MIN_EXP = -308;
+        const MAX_EXP = 308;
+        const EPSILON = 1e-323;
+        const DEFAULT_PRECISION = 0.0001;
+        const DEFAULT_PRECISION_IN_DECIMAL_DIGITS = 12;
         const LOG_E_10: number;
         const POSITIVE_POWERS: number[];
         const NEGATIVE_POWERS: number[];
@@ -475,7 +475,7 @@ declare module powerbi.extensibility.utils.type {
         private scriptingType;
         private variationTypes;
         /** Do not call the ValueType constructor directly. Use the ValueType.fromXXX methods. */
-        constructor(type: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]);
+        constructor(underlyingType: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]);
         /** Creates or retrieves a ValueType object based on the specified ValueTypeDescriptor. */
         static fromDescriptor(descriptor: IValueTypeDescriptor): ValueType;
         /** Advanced: Generally use fromDescriptor instead. Creates or retrieves a ValueType object for the specified ExtendedType. */
@@ -487,7 +487,7 @@ declare module powerbi.extensibility.utils.type {
         /** Creates a ValueType to describe the given Variant type. */
         static fromVariant(variantTypes: ValueType[]): ValueType;
         /** Determines if the specified type is compatible from at least one of the otherTypes. */
-        static isCompatibleTo(type: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean;
+        static isCompatibleTo(typeDescriptor: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean;
         /** Determines if the instance ValueType is convertable from the 'other' ValueType. */
         isCompatibleFrom(other: ValueType): boolean;
         /**
@@ -497,87 +497,87 @@ declare module powerbi.extensibility.utils.type {
          */
         equals(other: ValueType): boolean;
         /** Gets the exact primitive type of this ValueType. */
-        primitiveType: PrimitiveType;
+        readonly primitiveType: PrimitiveType;
         /** Gets the exact extended type of this ValueType. */
-        extendedType: ExtendedType;
+        readonly extendedType: ExtendedType;
         /** Gets the data category string (if any) for this ValueType. */
-        categoryString: string;
+        readonly categoryString: string;
         /** Indicates whether the type represents text values. */
-        text: boolean;
+        readonly text: boolean;
         /** Indicates whether the type represents any numeric value. */
-        numeric: boolean;
+        readonly numeric: boolean;
         /** Indicates whether the type represents integer numeric values. */
-        integer: boolean;
+        readonly integer: boolean;
         /** Indicates whether the type represents Boolean values. */
-        bool: boolean;
+        readonly bool: boolean;
         /** Indicates whether the type represents any date/time values. */
-        dateTime: boolean;
+        readonly dateTime: boolean;
         /** Indicates whether the type represents duration values. */
-        duration: boolean;
+        readonly duration: boolean;
         /** Indicates whether the type represents binary values. */
-        binary: boolean;
+        readonly binary: boolean;
         /** Indicates whether the type represents none values. */
-        none: boolean;
+        readonly none: boolean;
         /** Returns an object describing temporal values represented by the type, if it represents a temporal type. */
-        temporal: TemporalType;
+        readonly temporal: TemporalType;
         /** Returns an object describing geographic values represented by the type, if it represents a geographic type. */
-        geography: GeographyType;
+        readonly geography: GeographyType;
         /** Returns an object describing the specific values represented by the type, if it represents a miscellaneous extended type. */
-        misc: MiscellaneousType;
+        readonly misc: MiscellaneousType;
         /** Returns an object describing the formatting values represented by the type, if it represents a formatting type. */
-        formatting: FormattingType;
+        readonly formatting: FormattingType;
         /** Returns an object describing the enum values represented by the type, if it represents an enumeration type. */
-        enum: IEnumType;
-        scripting: ScriptType;
+        readonly enumeration: IEnumType;
+        readonly scripting: ScriptType;
         /** Returns an array describing the variant values represented by the type, if it represents an Variant type. */
-        variant: ValueType[];
+        readonly variant: ValueType[];
     }
     class ScriptType implements ScriptTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
-        source: boolean;
+        constructor(underlyingType: ExtendedType);
+        readonly source: boolean;
     }
     class TemporalType implements TemporalTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
-        year: boolean;
-        quarter: boolean;
-        month: boolean;
-        day: boolean;
-        paddedDateTableDate: boolean;
+        constructor(underlyingType: ExtendedType);
+        readonly year: boolean;
+        readonly quarter: boolean;
+        readonly month: boolean;
+        readonly day: boolean;
+        readonly paddedDateTableDate: boolean;
     }
     class GeographyType implements GeographyTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
-        address: boolean;
-        city: boolean;
-        continent: boolean;
-        country: boolean;
-        county: boolean;
-        region: boolean;
-        postalCode: boolean;
-        stateOrProvince: boolean;
-        place: boolean;
-        latitude: boolean;
-        longitude: boolean;
+        constructor(underlyingType: ExtendedType);
+        readonly address: boolean;
+        readonly city: boolean;
+        readonly continent: boolean;
+        readonly country: boolean;
+        readonly county: boolean;
+        readonly region: boolean;
+        readonly postalCode: boolean;
+        readonly stateOrProvince: boolean;
+        readonly place: boolean;
+        readonly latitude: boolean;
+        readonly longitude: boolean;
     }
     class MiscellaneousType implements MiscellaneousTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
-        image: boolean;
-        imageUrl: boolean;
-        webUrl: boolean;
-        barcode: boolean;
+        constructor(underlyingType: ExtendedType);
+        readonly image: boolean;
+        readonly imageUrl: boolean;
+        readonly webUrl: boolean;
+        readonly barcode: boolean;
     }
     class FormattingType implements FormattingTypeDescriptor {
         private underlyingType;
-        constructor(type: ExtendedType);
-        color: boolean;
-        formatString: boolean;
-        alignment: boolean;
-        labelDisplayUnits: boolean;
-        fontSize: boolean;
-        labelDensity: boolean;
+        constructor(underlyingType: ExtendedType);
+        readonly color: boolean;
+        readonly formatString: boolean;
+        readonly alignment: boolean;
+        readonly labelDisplayUnits: boolean;
+        readonly fontSize: boolean;
+        readonly labelDensity: boolean;
     }
     /** Defines primitive value types. Must be consistent with types defined by server conceptual schema. */
     enum PrimitiveType {
