@@ -30,7 +30,7 @@ module powerbi.extensibility.utils.type {
          * Returns a new object with the provided obj as its prototype.
          */
         export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
-            function wrapCtor(): void { };
+            function wrapCtor(): void { }
             wrapCtor.prototype = obj;
 
             let inherited = new wrapCtor();

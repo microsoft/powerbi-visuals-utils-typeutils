@@ -2,7 +2,7 @@
  *  Power BI Visualizations
  *
  *  Copyright (c) Microsoft Corporation
- *  All rights reserved. 
+ *  All rights reserved.
  *  MIT License
  *
  *  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -11,14 +11,14 @@
  *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  *  copies of the Software, and to permit persons to whom the Software is
  *  furnished to do so, subject to the following conditions:
- *   
- *  The above copyright notice and this permission notice shall be included in 
+ *
+ *  The above copyright notice and this permission notice shall be included in
  *  all copies or substantial portions of the Software.
- *   
- *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+ *
+ *  THE SOFTWARE IS PROVIDED *AS IS*, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
  *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
@@ -51,29 +51,29 @@ module powerbi.extensibility.utils.type {
         private variationTypes: ValueType[];
 
         /** Do not call the ValueType constructor directly. Use the ValueType.fromXXX methods. */
-        constructor(type: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]) {
-            this.underlyingType = type;
+        constructor(extType: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]) {
+            this.underlyingType = extType;
             this.category = category;
 
-            if (EnumExtensions.hasFlag(type, ExtendedType.Temporal)) {
-                this.temporalType = new TemporalType(type);
+            if (EnumExtensions.hasFlag(extType, ExtendedType.Temporal)) {
+                this.temporalType = new TemporalType(extType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Geography)) {
-                this.geographyType = new GeographyType(type);
+            if (EnumExtensions.hasFlag(extType, ExtendedType.Geography)) {
+                this.geographyType = new GeographyType(extType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Miscellaneous)) {
-                this.miscType = new MiscellaneousType(type);
+            if (EnumExtensions.hasFlag(extType, ExtendedType.Miscellaneous)) {
+                this.miscType = new MiscellaneousType(extType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Formatting)) {
-                this.formattingType = new FormattingType(type);
+            if (EnumExtensions.hasFlag(extType, ExtendedType.Formatting)) {
+                this.formattingType = new FormattingType(extType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Enumeration)) {
+            if (EnumExtensions.hasFlag(extType, ExtendedType.Enumeration)) {
                 this.enumType = enumType;
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Scripting)) {
-                this.scriptingType = new ScriptType(type);
+            if (EnumExtensions.hasFlag(extType, ExtendedType.Scripting)) {
+                this.scriptingType = new ScriptType(extType);
             }
-            if (EnumExtensions.hasFlag(type, ExtendedType.Variant)) {
+            if (EnumExtensions.hasFlag(extType, ExtendedType.Variant)) {
                 this.variationTypes = variantTypes;
             }
         }
@@ -138,7 +138,7 @@ module powerbi.extensibility.utils.type {
                 if (descriptor.operations.searchEnabled) return ValueType.fromExtendedType(ExtendedType.SearchEnabled);
             }
             if ((<any>descriptor).variant) {
-                let variantTypes = _.map((<any>descriptor).variant, (variantType) => ValueType.fromDescriptor(variantType));
+                let variantTypes = (<any>descriptor).variant.map((variantType) => ValueType.fromDescriptor(variantType));
                 return ValueType.fromVariant(variantTypes);
             }
 
@@ -178,8 +178,8 @@ module powerbi.extensibility.utils.type {
         }
 
         /** Determines if the specified type is compatible from at least one of the otherTypes. */
-        public static isCompatibleTo(type: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean {
-            let valueType = ValueType.fromDescriptor(type);
+        public static isCompatibleTo(typeDescriptor: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean {
+            let valueType = ValueType.fromDescriptor(typeDescriptor);
             for (let otherType of otherTypes) {
                 let otherValueType = ValueType.fromDescriptor(otherType);
 
@@ -209,7 +209,7 @@ module powerbi.extensibility.utils.type {
          * @returns True if the instance ValueType is equal to the 'other' ValueType
          */
         public equals(other: ValueType): boolean {
-            return _.isEqual(this, other);
+            return JsonComparer.equals(this, other);
         }
 
         /** Gets the exact primitive type of this ValueType. */

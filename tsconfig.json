@@ -9,7 +9,6 @@
     },
     "files": [
         "node_modules/powerbi-visuals-tools/templates/visuals/.api/v1.2.0/PowerBI-visuals.d.ts",
-        "node_modules/@types/lodash/index.d.ts",
         "src/double.ts",
         "src/prototype.ts",
         "src/extensions/arrayExtensions.ts",
