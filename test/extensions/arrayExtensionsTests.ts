@@ -135,6 +135,7 @@ module powerbi.extensibility.utils.type.test {
             const array: number[] = [1, 2, 3];
             let result = ArrayExtensions.copy(array);
             result.push(4);
+            expect(result === array).toBeFalsy();
             expect(result).toEqual([1, 2, 3, 4]);
         });
 
