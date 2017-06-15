@@ -138,7 +138,7 @@ module powerbi.extensibility.utils.type {
                 if (descriptor.operations.searchEnabled) return ValueType.fromExtendedType(ExtendedType.SearchEnabled);
             }
             if ((<any>descriptor).variant) {
-                let variantTypes = _.map((<any>descriptor).variant, (variantType) => ValueType.fromDescriptor(variantType));
+                let variantTypes = (<any>descriptor).variant.map((variantType) => ValueType.fromDescriptor(variantType));
                 return ValueType.fromVariant(variantTypes);
             }
 
@@ -209,7 +209,7 @@ module powerbi.extensibility.utils.type {
          * @returns True if the instance ValueType is equal to the 'other' ValueType
          */
         public equals(other: ValueType): boolean {
-            return _.isEqual(this, other);
+            return JsonComparer.equals(this, other);
         }
 
         /** Gets the exact primitive type of this ValueType. */

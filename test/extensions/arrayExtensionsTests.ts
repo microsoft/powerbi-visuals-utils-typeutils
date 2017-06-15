@@ -92,6 +92,14 @@ module powerbi.extensibility.utils.type.test {
             expect(result).toEqual([2]);
         });
 
+        it("Diff of 2 arrays", () => {
+            const emptyArray: any = [];
+            const array: number[] = [1, 2, 3];
+            const array2: number[] = [1, 2, 3, 4];
+            expect(ArrayExtensions.diff(array2, array)).toEqual([4]);
+            expect(ArrayExtensions.diff(emptyArray, emptyArray)).toEqual([]);
+        });
+
         it("Union of an array and an element", () => {
             const array: number[] = [1, 2];
 
@@ -123,6 +131,14 @@ module powerbi.extensibility.utils.type.test {
             expect(result).toEqual([1, 2]);
         });
 
+        it("Copy arrays", () => {
+            const array: number[] = [1, 2, 3];
+            let result = ArrayExtensions.copy(array);
+            result.push(4);
+            expect(result === array).toBeFalsy();
+            expect(result).toEqual([1, 2, 3, 4]);
+        });
+
         it("ArrayExtensionsEmptyToNull", () => {
 
             expect(ArrayExtensions.emptyToNull([])).toBeNull();
@@ -140,6 +156,7 @@ module powerbi.extensibility.utils.type.test {
             expect(ArrayExtensions.sequenceEqual([1], null, equalsNegativesComparison)).toBeFalsy();
             expect(ArrayExtensions.sequenceEqual(null, [1], equalsNegativesComparison)).toBeFalsy();
             expect(ArrayExtensions.sequenceEqual(null, undefined, equalsNegativesComparison)).toBeTruthy();
+            expect(ArrayExtensions.sequenceEqual([1, 2], [1], equalsNegativesComparison)).toBeFalsy();
         });
 
         it("ArrayExtensionsSequenceEqual, T !== U", () => {
@@ -168,6 +185,12 @@ module powerbi.extensibility.utils.type.test {
             expect(ArrayExtensions.ensureArray([1, 2, 3])).toEqual([1, 2, 3]);
             expect(ArrayExtensions.ensureArray([1])).toEqual([1]);
             expect(ArrayExtensions.ensureArray(1)).toEqual([1]);
+        });
+
+        it("Get index by predicate", () => {
+            expect(ArrayExtensions.indexOf<number>([1, 2, 3], (num: number) => num === 2)).toEqual(1);
+            expect(ArrayExtensions.indexOf<number>([1, 2, 3], (num: number) => num === 4)).toEqual(-1);
+
         });
 
         describe("insertSorted", () => {

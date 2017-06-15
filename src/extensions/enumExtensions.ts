@@ -76,7 +76,7 @@ module powerbi.extensibility.utils.type {
                 }
 
                 shiftingValue = shiftingValue >>> 1;
-            };
+            }
             return bitCount;
         }
     }
