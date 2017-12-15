@@ -23,54 +23,49 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+import RegExpExtensions = powerbi.extensibility.utils.type.RegExpExtensions;
 
-/// <reference path="../_references.ts" />
+describe("Regexr", () => {
 
-module powerbi.extensibility.utils.type.test {
-    import RegExpExtensions = powerbi.extensibility.utils.type.RegExpExtensions;
+    describe("run", () => {
+        let T = "@";
+        let regex = new RegExp(T, "g");
+        // let targets = '@--------@----@--@';
+        let targets = `${T}--------${T}----${T}--${T}`;
 
-    describe("Regexr", () => {
+        function verifyMatch(match: RegExpExecArray, index: number): void {
+            expect(match[0]).toBe(T);
+            expect(match.index).toBe(index);
+        }
 
-        describe("run", () => {
-            let T = "@";
-            let regex = new RegExp(T, "g");
-            // let targets = '@--------@----@--@';
-            let targets = `${T}--------${T}----${T}--${T}`;
+        it("finds match", () => {
+            verifyMatch(RegExpExtensions.run(regex, targets), 0);
+        });
 
-            function verifyMatch(match: RegExpExecArray, index: number): void {
-                expect(match[0]).toBe(T);
-                expect(match.index).toBe(index);
-            }
+        it("always starts at index 0", () => {
+            verifyMatch(RegExpExtensions.run(regex, targets), 0);
+            verifyMatch(RegExpExtensions.run(regex, targets), 0);
+        });
 
+        describe("with start", () => {
             it("finds match", () => {
-                verifyMatch(RegExpExtensions.run(regex, targets), 0);
+                let match = RegExpExtensions.run(regex, targets, 10);
+                verifyMatch(match, 14);
             });
 
-            it("always starts at index 0", () => {
-                verifyMatch(RegExpExtensions.run(regex, targets), 0);
-                verifyMatch(RegExpExtensions.run(regex, targets), 0);
-            });
+            it("starts at specified index", () => {
+                let match = RegExpExtensions.run(regex, targets, 2);
+                verifyMatch(match, 9);
 
-            describe("with start", () => {
-                it("finds match", () => {
-                    let match = RegExpExtensions.run(regex, targets, 10);
-                    verifyMatch(match, 14);
-                });
+                match = RegExpExtensions.run(regex, targets, 10);
+                verifyMatch(match, 14);
 
-                it("starts at specified index", () => {
-                    let match = RegExpExtensions.run(regex, targets, 2);
-                    verifyMatch(match, 9);
+                match = RegExpExtensions.run(regex, targets, 15);
+                verifyMatch(match, 17);
 
-                    match = RegExpExtensions.run(regex, targets, 10);
-                    verifyMatch(match, 14);
-
-                    match = RegExpExtensions.run(regex, targets, 15);
-                    verifyMatch(match, 17);
-
-                    match = RegExpExtensions.run(regex, targets, 18);
-                    expect(match).toBe(null);
-                });
+                match = RegExpExtensions.run(regex, targets, 18);
+                expect(match).toBe(null);
             });
         });
     });
-}
+});

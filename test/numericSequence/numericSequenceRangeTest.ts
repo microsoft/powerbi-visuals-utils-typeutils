@@ -23,15 +23,10 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+import NumericSequenceRange = powerbi.extensibility.utils.type.NumericSequenceRange;
 
-/// <reference path="../_references.ts" />
-
-module powerbi.extensibility.utils.type.test {
-    import NumericSequenceRange = powerbi.extensibility.utils.type.NumericSequenceRange;
-
-    describe("NumericSequenceRange", () => {
-        it("The class is defined", () => {
-            expect(NumericSequenceRange).toBeDefined();
-        });
+describe("NumericSequenceRange", () => {
+    it("The class is defined", () => {
+        expect(NumericSequenceRange).toBeDefined();
     });
-}
+});

@@ -23,17 +23,14 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-
-module powerbi.extensibility.utils.type {
+/**
+ * Extensions to String class.
+ */
+export module StringExtensions {
     /**
-     * Extensions to String class.
+     * Checks if a string ends with a sub-string.
      */
-    export module StringExtensions {
-        /**
-         * Checks if a string ends with a sub-string.
-         */
-        export function endsWith(str: string, suffix: string): boolean {
-            return str.indexOf(suffix, str.length - suffix.length) !== -1;
-        }
+    export function endsWith(str: string, suffix: string): boolean {
+        return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
 }
