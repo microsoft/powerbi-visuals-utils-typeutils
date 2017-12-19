@@ -23,8 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import ValueType = powerbi.extensibility.utils.type.ValueType;
-import ExtendedType = powerbi.extensibility.utils.type.ExtendedType;
+import {ValueType, ExtendedType} from "../src/valueType";
 
 describe("isCompatibleFrom", () => {
     it("Both numbers is true", () => {

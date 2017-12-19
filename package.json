@@ -30,6 +30,7 @@
     "@types/jasmine": "^2.8.2",
     "@types/karma": "^1.7.2",
     "@types/webpack": "^3.8.1",
+    "chalk": "^2.2.0",
     "coveralls": "2.13.1",
     "jasmine": "2.6.0",
     "karma": "1.7.0",

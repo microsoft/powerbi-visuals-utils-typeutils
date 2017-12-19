@@ -23,8 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-
-import Prototype = powerbi.extensibility.utils.type.Prototype;
+import {Prototype} from "../src/prototype";
 
 describe("Prototype", () => {
     it("inherit: base", () => {

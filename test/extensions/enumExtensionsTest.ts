@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import EnumExtensions = powerbi.extensibility.utils.type.EnumExtensions;
+import {EnumExtensions} from "../../src/extensions/enumExtensions";
 
 describe("EnumExtensions", () => {
     it("getBitCount", () => {

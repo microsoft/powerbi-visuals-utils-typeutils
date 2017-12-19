@@ -33,7 +33,7 @@ import MiscellaneousTypeDescriptor = powerbi.MiscellaneousTypeDescriptor;
 import FormattingTypeDescriptor = powerbi.FormattingTypeDescriptor;
 // powerbi.extensibility.utils.type
 import { EnumExtensions } from "./extensions/enumExtensions";
-import {JsonComparer} from "./JsonComparer";
+import {JsonComparer} from "./jsonComparer";
 
 export interface IValueTypeDescriptor extends ValueTypeDescriptor {
     extendedType?: ExtendedType;

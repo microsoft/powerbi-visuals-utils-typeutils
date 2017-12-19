@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import NumericSequence = powerbi.extensibility.utils.type.NumericSequence;
+import {NumericSequence} from "../../src/numericSequence/numericSequence";
 
 describe("NumericSequence", () => {
     it("The class is defined", () => {

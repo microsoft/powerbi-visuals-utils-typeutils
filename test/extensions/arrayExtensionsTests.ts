@@ -23,8 +23,8 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import ArrayExtensions = powerbi.extensibility.utils.type.ArrayExtensions;
-import Prototype = powerbi.extensibility.utils.type.Prototype;
+import {ArrayExtensions} from "../../src/extensions/arrayExtensions";
+import {Prototype} from "../../src/prototype";
 
 interface TestIdType { id: number; }
 interface TestNamedType { name: string; }

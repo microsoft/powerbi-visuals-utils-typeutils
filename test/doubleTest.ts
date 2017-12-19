@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import Double = powerbi.extensibility.utils.type.Double;
+import {Double} from "../src/double";
 
 describe("Double", () => {
 
