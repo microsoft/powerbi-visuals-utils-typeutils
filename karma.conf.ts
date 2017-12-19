@@ -96,11 +96,8 @@ module.exports = (config: Config) => {
                 ]
             },
             output: {
-                filename: "index.build.js",
-                // path: path.resolve(__dirname, "lib")
-            },
-            plugins: [
-            ]
+                filename: "index.build.js"
+            }
         },     
        
         coverageReporter: {
