@@ -25,7 +25,7 @@
  */
 // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
 
-import { Double } from "../Double";
+import { Double } from "../double";
 
 /**
  * Extensions for Enumerations.

@@ -81,8 +81,7 @@ module.exports = (config: Config) => {
             externals: [
                 {
                     sinon: "sinon",
-                    chai: "chai",
-                    jQuery: "jQuery"
+                    chai: "chai"
                 },
             ],
             module: {
@@ -103,14 +102,7 @@ module.exports = (config: Config) => {
             plugins: [
             ]
         },     
-        typescriptPreprocessor: {
-            options: {
-                sourceMap: false,
-                target: 'ES5',
-                removeComments: false,
-                concatenateOutput: false
-            }
-        },
+       
         coverageReporter: {
             dir: coverageFolder,
             reporters: [
