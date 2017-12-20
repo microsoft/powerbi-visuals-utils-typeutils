@@ -23,19 +23,16 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+// NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
 
-module powerbi.extensibility.utils.type {
-    // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
+export module JsonComparer {
+    /**
+     * Performs JSON-style comparison of two objects.
+     */
+    export function equals<T>(x: T, y: T): boolean {
+        if (x === y)
+            return true;
 
-    export module JsonComparer {
-        /**
-         * Performs JSON-style comparison of two objects.
-         */
-        export function equals<T>(x: T, y: T): boolean {
-            if (x === y)
-                return true;
-
-            return JSON.stringify(x) === JSON.stringify(y);
-        }
+        return JSON.stringify(x) === JSON.stringify(y);
     }
 }

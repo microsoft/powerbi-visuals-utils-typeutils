@@ -25,13 +25,16 @@
  */
 
 'use strict';
+import * as webpack from "webpack";
+
+import { Config, ConfigOptions } from "karma";
 
 const testRecursivePath = 'test/**/*.ts'
     , srcOriginalRecursivePath = 'src/**/*.ts'
     , srcRecursivePath = 'lib/**/*.js'
     , coverageFolder = 'coverage';
 
-module.exports = (config) => {
+module.exports = (config: Config) => {
     let browsers = [];
 
     if (process.env.TRAVIS) {
@@ -40,7 +43,7 @@ module.exports = (config) => {
         browsers.push('Chrome');
     }
 
-    config.set({
+    config.set(<ConfigOptions>{
         customLaunchers: {
             ChromeTravisCI: {
                 base: 'Chrome',
@@ -66,17 +69,37 @@ module.exports = (config) => {
             }
         ],
         preprocessors: {
-            [testRecursivePath]: ['typescript'],
-            [srcRecursivePath]: ['sourcemap', 'coverage']
+            [testRecursivePath]: ['typescript', "webpack"],
+            [srcRecursivePath]: ["webpack",'sourcemap', 'coverage']
         },
-        typescriptPreprocessor: {
-            options: {
-                sourceMap: false,
-                target: 'ES5',
-                removeComments: false,
-                concatenateOutput: false
+        webpack: <webpack.Configuration>{
+            target: "web",
+            devtool: "inline-source-map",
+            resolve: {
+                extensions: [".webpack.js", ".web.js", ".js", ".ts", ".tsx"]
+            },
+            externals: [
+                {
+                    sinon: "sinon",
+                    chai: "chai"
+                },
+            ],
+            module: {
+                rules: [
+                    {
+                        test: /\.jsx?$/,
+                    },
+                    {
+                        test: /\.tsx?$/,
+                        loader: "ts-loader",
+                    }
+                ]
+            },
+            output: {
+                filename: "index.build.js"
             }
-        },
+        },     
+       
         coverageReporter: {
             dir: coverageFolder,
             reporters: [

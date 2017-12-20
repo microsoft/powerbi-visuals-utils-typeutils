@@ -23,16 +23,11 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+import {TextSizeDefaults} from "../src/textSizeDefaults";
 
-/// <reference path="_references.ts" />
+describe("TextSizeDefaults", () => {
 
-module powerbi.extensibility.utils.type.test {
-    import TextSizeDefaults = powerbi.extensibility.utils.type.TextSizeDefaults;
-
-    describe("TextSizeDefaults", () => {
-
-        it("getScale", () => {
-            expect(TextSizeDefaults.getScale(24)).toBeCloseTo(0.50, 1);
-        });
+    it("getScale", () => {
+        expect(TextSizeDefaults.getScale(24)).toBeCloseTo(0.50, 1);
     });
-}
+});

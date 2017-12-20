@@ -23,15 +23,9 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-
-/// <reference path="../_references.ts" />
-
-module powerbi.extensibility.utils.type.test {
-    import NumericSequenceRange = powerbi.extensibility.utils.type.NumericSequenceRange;
-
-    describe("NumericSequenceRange", () => {
-        it("The class is defined", () => {
-            expect(NumericSequenceRange).toBeDefined();
-        });
+import {NumericSequenceRange} from "../../src/numericSequence/numericSequenceRange";
+describe("NumericSequenceRange", () => {
+    it("The class is defined", () => {
+        expect(NumericSequenceRange).toBeDefined();
     });
-}
+});

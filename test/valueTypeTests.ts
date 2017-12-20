@@ -23,43 +23,37 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+import {ValueType, ExtendedType} from "../src/valueType";
 
-/// <reference path="_references.ts"/>
+describe("isCompatibleFrom", () => {
+    it("Both numbers is true", () => {
+        let number1 = ValueType.fromDescriptor({ numeric: true });
+        let number2 = ValueType.fromDescriptor({ numeric: true });
 
-module powerbi.extensibility.utils.type.test {
-    import ValueType = powerbi.extensibility.utils.type.ValueType;
-    import ExtendedType = powerbi.extensibility.utils.type.ExtendedType;
-
-    describe("isCompatibleFrom", () => {
-        it("Both numbers is true", () => {
-            let number1 = ValueType.fromDescriptor({ numeric: true});
-            let number2 = ValueType.fromDescriptor({ numeric: true});
-
-            expect(number1.isCompatibleFrom(number2)).toBeTruthy();
-        });
-
-        it("Both numbers but different extended type is true.", () => {
-            let number1 = ValueType.fromExtendedType(ExtendedType.Decimal);
-            let number2 = ValueType.fromExtendedType(ExtendedType.Double);
-
-            expect(number1.isCompatibleFrom(number2)).toBeTruthy();
-        });
-
-        it("One is number other is not", () => {
-            let number1 = ValueType.fromExtendedType(ExtendedType.Decimal);
-            let number2 = ValueType.fromExtendedType(ExtendedType.Boolean);
-
-            expect(number1.isCompatibleFrom(number2)).toBeFalsy();
-        });
+        expect(number1.isCompatibleFrom(number2)).toBeTruthy();
     });
 
-    describe("Variant ValueType", () => {
-        it("Create variant ValueType and check the variationTypes", () => {
-            let variantType = ValueType.fromDescriptor({ variant: [{ numeric: true }, { dateTime: true }] } as any);
+    it("Both numbers but different extended type is true.", () => {
+        let number1 = ValueType.fromExtendedType(ExtendedType.Decimal);
+        let number2 = ValueType.fromExtendedType(ExtendedType.Double);
 
-            expect(variantType.extendedType).toBe(ExtendedType.Variant);
-            expect(variantType.variant).toBeDefined();
-            expect(variantType.variant).toEqual([ValueType.fromDescriptor({ numeric: true }), ValueType.fromDescriptor({ dateTime: true })]);
-        });
+        expect(number1.isCompatibleFrom(number2)).toBeTruthy();
     });
-}
+
+    it("One is number other is not", () => {
+        let number1 = ValueType.fromExtendedType(ExtendedType.Decimal);
+        let number2 = ValueType.fromExtendedType(ExtendedType.Boolean);
+
+        expect(number1.isCompatibleFrom(number2)).toBeFalsy();
+    });
+});
+
+describe("Variant ValueType", () => {
+    it("Create variant ValueType and check the variationTypes", () => {
+        let variantType = ValueType.fromDescriptor({ variant: [{ numeric: true }, { dateTime: true }] } as any);
+
+        expect(variantType.extendedType).toBe(ExtendedType.Variant);
+        expect(variantType.variant).toBeDefined();
+        expect(variantType.variant).toEqual([ValueType.fromDescriptor({ numeric: true }), ValueType.fromDescriptor({ dateTime: true })]);
+    });
+});

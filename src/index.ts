@@ -11,5 +11,9 @@ import * as pixelConverter from "./pixelConverter";
 import * as prototype from "./prototype";
 import * as textSizeDefaults from "./textSizeDefaults";
 import * as valueType from "./valueType";
-export { arrayExtensions, enumExtensions, logicExtensions, regExpExtensions, stringExtensions, numericSequence, numericSequenceRange, double, jsonComparer, pixelConverter, prototype, textSizeDefaults, valueType };
-//# sourceMappingURL=index.js.map
+
+export {
+    arrayExtensions, enumExtensions, logicExtensions, regExpExtensions,
+    stringExtensions, numericSequence, numericSequenceRange, double,
+    jsonComparer, pixelConverter, prototype, textSizeDefaults, valueType
+};
