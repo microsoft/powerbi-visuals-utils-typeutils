@@ -42,7 +42,7 @@ module powerbi.extensibility.utils.type {
          * Stored in terms of 'pt'
          * Convert to pixels using PixelConverter.fromPoint
          */
-        export const TextSizeMax: number = 40;
+        export const TextSizeMax: number = 100;
 
         const TextSizeRange: number = TextSizeMax - TextSizeMin;
 
