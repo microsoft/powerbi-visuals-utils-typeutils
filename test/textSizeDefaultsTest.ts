@@ -32,7 +32,7 @@ module powerbi.extensibility.utils.type.test {
     describe("TextSizeDefaults", () => {
 
         it("getScale", () => {
-            expect(TextSizeDefaults.getScale(24)).toBeCloseTo(0.50, 1);
+            expect(TextSizeDefaults.getScale(24)).toBeCloseTo(0.17, 1);
         });
     });
 }
