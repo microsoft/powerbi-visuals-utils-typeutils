@@ -25,14 +25,12 @@
  */
 // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
 
-export module JsonComparer {
-    /**
-     * Performs JSON-style comparison of two objects.
-     */
-    export function equals<T>(x: T, y: T): boolean {
-        if (x === y)
-            return true;
+/**
+ * Performs JSON-style comparison of two objects.
+ */
+export function equals<T>(x: T, y: T): boolean {
+    if (x === y)
+        return true;
 
-        return JSON.stringify(x) === JSON.stringify(y);
-    }
+    return JSON.stringify(x) === JSON.stringify(y);
 }

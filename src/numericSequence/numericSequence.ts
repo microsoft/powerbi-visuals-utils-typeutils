@@ -24,7 +24,7 @@
  *  THE SOFTWARE.
  */
 
-import { Double } from "../double";
+import * as Double from "../double";
 import { NumericSequenceRange } from "./numericSequenceRange";
 
 export class NumericSequence {

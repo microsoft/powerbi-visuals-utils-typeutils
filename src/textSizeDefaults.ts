@@ -29,27 +29,24 @@
  * Values are in terms of 'pt'
  * Convert to pixels using PixelConverter.fromPoint
  */
-export module TextSizeDefaults {
-    /**
-     * Stored in terms of 'pt'
-     * Convert to pixels using PixelConverter.fromPoint
-     */
-    export const TextSizeMin: number = 8;
+/**
+ * Stored in terms of 'pt'
+ * Convert to pixels using PixelConverter.fromPoint
+ */
+export const TextSizeMin: number = 8;
 
-    /**
-     * Stored in terms of 'pt'
-     * Convert to pixels using PixelConverter.fromPoint
-     */
-    export const TextSizeMax: number = 40;
+/**
+ * Stored in terms of 'pt'
+ * Convert to pixels using PixelConverter.fromPoint
+ */
+export const TextSizeMax: number = 40;
 
-    const TextSizeRange: number = TextSizeMax - TextSizeMin;
+const TextSizeRange: number = TextSizeMax - TextSizeMin;
 
-    /**
-     * Returns the percentage of this value relative to the TextSizeMax
-     * @param textSize - should be given in terms of 'pt'
-     */
-    export function getScale(textSize: number) {
-        return (textSize - TextSizeMin) / TextSizeRange;
-    }
-
+/**
+ * Returns the percentage of this value relative to the TextSizeMax
+ * @param textSize - should be given in terms of 'pt'
+ */
+export function getScale(textSize: number) {
+    return (textSize - TextSizeMin) / TextSizeRange;
 }

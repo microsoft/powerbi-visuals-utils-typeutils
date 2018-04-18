@@ -1,3 +1,4 @@
+/// <reference types="powerbi-visuals-tools" />
 import ValueTypeDescriptor = powerbi.ValueTypeDescriptor;
 import IEnumType = powerbi.IEnumType;
 import ScriptTypeDescriptor = powerbi.ScriptTypeDescriptor;
