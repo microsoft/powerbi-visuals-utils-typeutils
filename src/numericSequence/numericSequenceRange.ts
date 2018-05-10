@@ -24,7 +24,7 @@
  *  THE SOFTWARE.
  */
 
-import { Double } from "../double";
+import * as Double from "../double";
 
 export class NumericSequenceRange {
     private static DEFAULT_MAX: number = 10;
