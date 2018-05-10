@@ -23,7 +23,8 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-// powerbi
+
+import powerbi from "powerbi-visuals-tools";
 import ValueTypeDescriptor = powerbi.ValueTypeDescriptor;
 import IEnumType = powerbi.IEnumType;
 import ScriptTypeDescriptor = powerbi.ScriptTypeDescriptor;
