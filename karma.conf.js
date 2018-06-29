@@ -31,6 +31,8 @@ const srcOriginalRecursivePath = 'src/**/*.ts';
 const srcRecursivePath = 'lib/**/*.js';
 const coverageFolder = 'coverage';
 
+process.env.CHROME_BIN = require('puppeteer').executablePath();
+
 module.exports = (config) => {
     config.set({
         browsers: ['ChromeHeadless'],
