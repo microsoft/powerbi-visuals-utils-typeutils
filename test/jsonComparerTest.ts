@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import {JsonComparer}  from "../src/jsonComparer";
+import * as JsonComparer from "../src/jsonComparer";
 
 describe("JsonComparer", () => {
 

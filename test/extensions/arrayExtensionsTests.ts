@@ -24,7 +24,7 @@
  *  THE SOFTWARE.
  */
 import {ArrayExtensions} from "../../src/extensions/arrayExtensions";
-import {Prototype} from "../../src/prototype";
+import * as Prototype from "../../src/prototype";
 
 interface TestIdType { id: number; }
 interface TestNamedType { name: string; }

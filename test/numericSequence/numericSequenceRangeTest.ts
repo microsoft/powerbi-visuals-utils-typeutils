@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import {NumericSequenceRange} from "../../src/numericSequence/numericSequenceRange";
+import { NumericSequenceRange} from "../../src/numericSequence/numericSequenceRange";
 describe("NumericSequenceRange", () => {
     it("The class is defined", () => {
         expect(NumericSequenceRange).toBeDefined();

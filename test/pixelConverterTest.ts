@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import {PixelConverter} from "../src/pixelConverter";
+import * as PixelConverter from "../src/pixelConverter";
 describe("PixelConverter", () => {
 
     it("toString", () => {

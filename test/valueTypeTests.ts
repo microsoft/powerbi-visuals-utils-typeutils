@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import {ValueType, ExtendedType} from "../src/valueType";
+import { ValueType, ExtendedType } from "../src/valueType";
 
 describe("isCompatibleFrom", () => {
     it("Both numbers is true", () => {

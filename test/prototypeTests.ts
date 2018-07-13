@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import {Prototype} from "../src/prototype";
+import * as Prototype from "../src/prototype";
 
 describe("Prototype", () => {
     it("inherit: base", () => {

@@ -24,7 +24,7 @@
  *  THE SOFTWARE.
  */
 
-import powerbi from "powerbi-visuals-tools";
+import powerbi from "powerbi-visuals-api";
 import ValueTypeDescriptor = powerbi.ValueTypeDescriptor;
 import IEnumType = powerbi.IEnumType;
 import ScriptTypeDescriptor = powerbi.ScriptTypeDescriptor;
