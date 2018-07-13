@@ -23,11 +23,11 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import {TextSizeDefaults} from "../src/textSizeDefaults";
+import { getScale } from "../src/textSizeDefaults";
 
 describe("TextSizeDefaults", () => {
 
     it("getScale", () => {
-        expect(TextSizeDefaults.getScale(24)).toBeCloseTo(0.50, 1);
+        expect(getScale(24)).toBeCloseTo(0.50, 1);
     });
 });

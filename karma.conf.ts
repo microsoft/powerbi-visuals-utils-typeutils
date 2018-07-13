@@ -24,39 +24,26 @@
  *  THE SOFTWARE.
  */
 
-'use strict';
-import * as webpack from "webpack";
+"use strict";
 
-import { Config, ConfigOptions } from "karma";
+const webpackConfig = require("./webpack.config.js");
+const tsconfig = require("./tsconfig.json");
 
-const testRecursivePath = 'test/**/*.ts'
-    , srcOriginalRecursivePath = 'src/**/*.ts'
-    , srcRecursivePath = 'lib/**/*.js'
-    , coverageFolder = 'coverage';
+const testRecursivePath = "test/**/*.ts";
+const srcOriginalRecursivePath = "src/**/*.ts";
+const srcRecursivePath = "lib/**/*.js";
+const coverageFolder = "coverage";
 
-module.exports = (config: Config) => {
-    let browsers = [];
-
-    if (process.env.TRAVIS) {
-        browsers.push('ChromeTravisCI');
-    } else {
-        browsers.push('Chrome');
-    }
-
-    config.set(<ConfigOptions>{
-        customLaunchers: {
-            ChromeTravisCI: {
-                base: 'Chrome',
-                flags: ['--no-sandbox']
-            }
-        },
-        browsers: browsers,
+process.env.CHROME_BIN = require("puppeteer").executablePath();
+module.exports = (config) => {
+    config.set({
+        browsers: ["ChromeHeadless"],
         colors: true,
-        frameworks: ['jasmine'],
+        frameworks: ["jasmine"],
         reporters: [
-            'progress',
-            'coverage',
-            'karma-remap-istanbul'
+            "progress",
+            "coverage",
+            "karma-remap-istanbul"
         ],
         singleRun: true,
         files: [
@@ -69,47 +56,23 @@ module.exports = (config: Config) => {
             }
         ],
         preprocessors: {
-            [testRecursivePath]: ['typescript', "webpack"],
-            [srcRecursivePath]: ["webpack",'sourcemap', 'coverage']
+            [testRecursivePath]: ["typescript", "webpack"],
+            [srcRecursivePath]: ["webpack", "sourcemap", "coverage"]
         },
-        webpack: <webpack.Configuration>{
-            target: "web",
-            devtool: "inline-source-map",
-            resolve: {
-                extensions: [".webpack.js", ".web.js", ".js", ".ts", ".tsx"]
-            },
-            externals: [
-                {
-                    sinon: "sinon",
-                    chai: "chai"
-                },
-            ],
-            module: {
-                rules: [
-                    {
-                        test: /\.jsx?$/,
-                    },
-                    {
-                        test: /\.tsx?$/,
-                        loader: "ts-loader",
-                    }
-                ]
-            },
-            output: {
-                filename: "index.build.js"
-            }
-        },     
-       
+        typescriptPreprocessor: {
+            options: tsconfig.compilerOptions
+        },
+        webpack: webpackConfig,
         coverageReporter: {
             dir: coverageFolder,
             reporters: [
-                { type: 'html' },
-                { type: 'lcov' }
+                { type: "html" },
+                { type: "lcov" }
             ]
         },
         remapIstanbulReporter: {
             reports: {
-                lcovonly: coverageFolder + '/lcov.info',
+                lcovonly: coverageFolder + "/lcov.info",
                 html: coverageFolder
             }
         }
