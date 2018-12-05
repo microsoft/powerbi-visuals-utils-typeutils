@@ -29,23 +29,39 @@
 const webpackConfig = require("./webpack.config.js");
 const tsconfig = require("./tsconfig.json");
 
+import { Config, ConfigOptions } from "karma";
+
 const testRecursivePath = "test/**/*.ts";
 const srcOriginalRecursivePath = "src/**/*.ts";
 const srcRecursivePath = "lib/**/*.js";
 const coverageFolder = "coverage";
 
 process.env.CHROME_BIN = require("puppeteer").executablePath();
-module.exports = (config) => {
-    config.set({
+module.exports = (config: Config) => {
+    config.set(<ConfigOptions>{
         browsers: ["ChromeHeadless"],
         colors: true,
         frameworks: ["jasmine"],
         reporters: [
             "progress",
-            "coverage",
-            "karma-remap-istanbul"
+            "coverage-istanbul"
         ],
+        coverageIstanbulReporter: {
+            reports: ["html", "lcovonly", "text-summary"],
+            combineBrowserReports: true,
+            fixWebpackSourcePaths: true
+        },
         singleRun: true,
+        plugins: [
+            "karma-remap-istanbul",
+            "karma-coverage",
+            "karma-typescript",
+            "karma-webpack",
+            "karma-jasmine",
+            "karma-sourcemap-loader",
+            "karma-chrome-launcher",
+            "karma-coverage-istanbul-reporter"
+        ],
         files: [
             srcRecursivePath,
             testRecursivePath,
@@ -56,13 +72,12 @@ module.exports = (config) => {
             }
         ],
         preprocessors: {
-            [testRecursivePath]: ["typescript", "webpack"],
-            [srcRecursivePath]: ["webpack", "sourcemap", "coverage"]
+            [testRecursivePath]: ["webpack"],
+            [srcRecursivePath]: ["webpack", "coverage"]
         },
         typescriptPreprocessor: {
             options: tsconfig.compilerOptions
         },
-        webpack: webpackConfig,
         coverageReporter: {
             dir: coverageFolder,
             reporters: [
@@ -73,8 +88,16 @@ module.exports = (config) => {
         remapIstanbulReporter: {
             reports: {
                 lcovonly: coverageFolder + "/lcov.info",
-                html: coverageFolder
+                html: coverageFolder,
+                "text-summary": null
             }
+        },
+        mime: {
+            "text/x-typescript": ["ts", "tsx"]
+        },
+        webpack: webpackConfig,
+        webpackMiddleware: {
+            stats: "errors-only"
         }
     });
 };

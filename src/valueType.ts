@@ -34,7 +34,7 @@ import MiscellaneousTypeDescriptor = powerbi.MiscellaneousTypeDescriptor;
 import FormattingTypeDescriptor = powerbi.FormattingTypeDescriptor;
 // powerbi.extensibility.utils.type
 import { EnumExtensions } from "./extensions/enumExtensions";
-import * as JsonComparer from "./jsonComparer";
+import { equals } from "./jsonComparer";
 
 export interface IValueTypeDescriptor extends ValueTypeDescriptor {
     extendedType?: ExtendedType;
@@ -214,7 +214,7 @@ export class ValueType implements IValueTypeDescriptor {
      * @returns True if the instance ValueType is equal to the 'other' ValueType
      */
     public equals(other: ValueType): boolean {
-        return JsonComparer.equals(this, other);
+        return equals(this, other);
     }
 
     /** Gets the exact primitive type of this ValueType. */

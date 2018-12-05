@@ -25,7 +25,7 @@
  */
 // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
 
-import * as Double from "../double";
+import { isInteger } from "../double";
 
 /**
  * Extensions for Enumerations.
@@ -63,7 +63,7 @@ export module EnumExtensions {
      * Returns the number of 1's in the specified value that is a set of binary bit flags.
      */
     export function getBitCount(value: number): number {
-        if (!Double.isInteger(value))
+        if (!isInteger(value))
             return 0;
 
         let bitCount = 0;
