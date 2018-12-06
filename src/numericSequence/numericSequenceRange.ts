@@ -24,7 +24,7 @@
  *  THE SOFTWARE.
  */
 
-import { pow10, ensureInRange, log10 } from "../double";
+import * as Double from "../double";
 
 export class NumericSequenceRange {
     private static DEFAULT_MAX: number = 10;
@@ -65,13 +65,13 @@ export class NumericSequenceRange {
                 // 1. Integers below 10,000 are extended by 0.5: so the [2006-2006] empty range is extended to [2005.5-2006.5] range and the ForsedSingleStop=2006
                 // 2. Other numbers are extended by half of their power: [700,001-700,001] => [650,001-750,001] and the ForsedSingleStop=null as we want the intervals to be calculated to cover the range.
                 let value = this.min;
-                let exp = log10(Math.abs(value));
+                let exp = Double.log10(Math.abs(value));
                 let step: number;
                 if (exp >= 0 && exp < 4) {
                     step = 0.5;
                     this.forcedSingleStop = value;
                 } else {
-                    step = pow10(exp) / 2;
+                    step = Double.pow10(exp) / 2;
                     this.forcedSingleStop = null;
                 }
                 this.min = value - step;
@@ -111,8 +111,8 @@ export class NumericSequenceRange {
         result.hasFixedMin = ValueUtil.hasValue(fixedMin);
         result.hasFixedMax = ValueUtil.hasValue(fixedMax);
 
-        dataMin = ensureInRange(dataMin, NumericSequenceRange.MIN_SUPPORTED_DOUBLE, NumericSequenceRange.MAX_SUPPORTED_DOUBLE);
-        dataMax = ensureInRange(dataMax, NumericSequenceRange.MIN_SUPPORTED_DOUBLE, NumericSequenceRange.MAX_SUPPORTED_DOUBLE);
+        dataMin = Double.ensureInRange(dataMin, NumericSequenceRange.MIN_SUPPORTED_DOUBLE, NumericSequenceRange.MAX_SUPPORTED_DOUBLE);
+        dataMax = Double.ensureInRange(dataMax, NumericSequenceRange.MIN_SUPPORTED_DOUBLE, NumericSequenceRange.MAX_SUPPORTED_DOUBLE);
 
         // Calculate the range using the min, max, dataRange
         if (result.hasFixedMin && result.hasFixedMax) {
