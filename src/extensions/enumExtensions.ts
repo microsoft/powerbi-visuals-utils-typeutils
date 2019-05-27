@@ -23,61 +23,58 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+// NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
 
-module powerbi.extensibility.utils.type {
-    // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
+import { isInteger } from "../double";
 
-    import Double = powerbi.extensibility.utils.type.Double;
+/**
+ * Extensions for Enumerations.
+ */
+export module EnumExtensions {
+    /**
+     * Gets a value indicating whether the value has the bit flags set.
+     */
+    export function hasFlag(value: number, flag: number): boolean {
+        return (value & flag) === flag;
+    }
 
     /**
-     * Extensions for Enumerations.
+     * Sets a value of a flag without modifying any other flags.
      */
-    export module EnumExtensions {
-        /**
-         * Gets a value indicating whether the value has the bit flags set.
-         */
-        export function hasFlag(value: number, flag: number): boolean {
-            return (value & flag) === flag;
-        }
+    export function setFlag(value: number, flag: number): number {
+        return value |= flag;
+    }
 
-        /**
-         * Sets a value of a flag without modifying any other flags.
-         */
-        export function setFlag(value: number, flag: number): number {
-            return value |= flag;
-        }
+    /**
+     * Resets a value of a flag without modifying any other flags.
+     */
+    export function resetFlag(value: number, flag: number): number {
+        return value &= ~flag;
+    }
 
-        /**
-         * Resets a value of a flag without modifying any other flags.
-         */
-        export function resetFlag(value: number, flag: number): number {
-            return value &= ~flag;
-        }
+    /**
+     * According to the TypeScript Handbook, this is safe to do.
+     */
+    export function toString(enumType: any, value: number): string {
+        return enumType[value];
+    }
 
-        /**
-         * According to the TypeScript Handbook, this is safe to do.
-         */
-        export function toString(enumType: any, value: number): string {
-            return enumType[value];
-        }
+    /**
+     * Returns the number of 1's in the specified value that is a set of binary bit flags.
+     */
+    export function getBitCount(value: number): number {
+        if (!isInteger(value))
+            return 0;
 
-        /**
-         * Returns the number of 1's in the specified value that is a set of binary bit flags.
-         */
-        export function getBitCount(value: number): number {
-            if (!Double.isInteger(value))
-                return 0;
-
-            let bitCount = 0;
-            let shiftingValue = value;
-            while (shiftingValue !== 0) {
-                if ((shiftingValue & 1) === 1) {
-                    bitCount++;
-                }
-
-                shiftingValue = shiftingValue >>> 1;
+        let bitCount = 0;
+        let shiftingValue = value;
+        while (shiftingValue !== 0) {
+            if ((shiftingValue & 1) === 1) {
+                bitCount++;
             }
-            return bitCount;
+
+            shiftingValue = shiftingValue >>> 1;
         }
+        return bitCount;
     }
 }

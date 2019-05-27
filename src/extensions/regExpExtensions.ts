@@ -23,23 +23,20 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+// NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
 
-module powerbi.extensibility.utils.type {
-    // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
-
-    export module RegExpExtensions {
-        /**
-         * Runs exec on regex starting from 0 index
-         * This is the expected behavior but RegExp actually remember
-         * the last index they stopped at (found match at) and will
-         * return unexpected results when run in sequence.
-         * @param regex - regular expression object
-         * @param value - string to search wiht regex
-         * @param start - index within value to start regex
-         */
-        export function run(regex: RegExp, value: string, start?: number): RegExpExecArray {
-            regex.lastIndex = start || 0;
-            return regex.exec(value);
-        }
+export module RegExpExtensions {
+    /**
+     * Runs exec on regex starting from 0 index
+     * This is the expected behavior but RegExp actually remember
+     * the last index they stopped at (found match at) and will
+     * return unexpected results when run in sequence.
+     * @param regex - regular expression object
+     * @param value - string to search wiht regex
+     * @param start - index within value to start regex
+     */
+    export function run(regex: RegExp, value: string, start?: number): RegExpExecArray {
+        regex.lastIndex = start || 0;
+        return regex.exec(value);
     }
 }

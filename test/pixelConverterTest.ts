@@ -23,24 +23,18 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+import * as PixelConverter from "../src/pixelConverter";
+describe("PixelConverter", () => {
 
-/// <reference path="_references.ts" />
-
-module powerbi.extensibility.utils.type.test {
-    import PixelConverter = powerbi.extensibility.utils.type.PixelConverter;
-
-    describe("PixelConverter", () => {
-
-        it("toString", () => {
-            expect(PixelConverter.toString(34)).toBe("34px");
-        });
-
-        it("fromPoint", () => {
-            expect(PixelConverter.fromPoint(10.5)).toBe("14px");
-        });
-
-        it("toPoint", () => {
-            expect(PixelConverter.toPoint(24)).toBe(18);
-        });
+    it("toString", () => {
+        expect(PixelConverter.toString(34)).toBe("34px");
     });
-}
+
+    it("fromPoint", () => {
+        expect(PixelConverter.fromPoint(10.5)).toBe("14px");
+    });
+
+    it("toPoint", () => {
+        expect(PixelConverter.toPoint(24)).toBe(18);
+    });
+});
