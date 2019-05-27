@@ -23,13 +23,9 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-
-module powerbi.extensibility.utils.type {
-    // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
-
-    export module LogicExtensions {
-        export function XOR(a: boolean, b: boolean): boolean {
-            return (a || b) && !(a && b);
-        }
+// NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
+export module LogicExtensions {
+    export function XOR(a: boolean, b: boolean): boolean {
+        return (a || b) && !(a && b);
     }
 }

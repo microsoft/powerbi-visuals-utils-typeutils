@@ -1,14 +1,18 @@
 {
   "name": "powerbi-visuals-utils-typeutils",
-  "version": "1.2.0",
+  "version": "2.2.0",
   "description": "TypeUtils",
   "main": "lib/index.js",
+  "module": "lib/index.js",
+  "jsnext:main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "sideEffects": false,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Microsoft/powerbi-visuals-utils-typeutils.git"
   },
   "keywords": [
-    "powerbi-visuals-utils"
+    "powerbi-visuals-typeutils"
   ],
   "author": "Microsoft",
   "license": "MIT",
@@ -23,24 +27,34 @@
     "build:map": "tsc --sourceMap",
     "build": "tsc",
     "test": "karma start",
-    "pretest": "npm run build:map",
+    "pretest": "npm run build:map && npm run lint",
     "lint": "tslint -r \"node_modules/tslint-microsoft-contrib\" \"+(src|test)/**/*.ts\""
   },
   "devDependencies": {
-    "@types/jasmine": "2.5.51",
-    "coveralls": "3.0.1",
+    "@types/jasmine": "^2.8.2",
+    "@types/karma": "^1.7.2",
+    "@types/webpack": "^3.8.1",
+    "chalk": "^2.2.0",
+    "coveralls": "^3.0.2",
+    "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine": "2.6.0",
-    "karma": "^3.0.0",
-    "karma-chrome-launcher": "2.2.0",
-    "karma-coverage": "1.1.2",
-    "karma-jasmine": "1.1.2",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "2.1.1",
+    "karma-coverage": "^1.1.2",
+    "karma-coverage-istanbul-reporter": "^2.0.4",
+    "karma-jasmine": "1.1.0",
     "karma-remap-istanbul": "0.6.0",
     "karma-sourcemap-loader": "0.3.7",
+    "karma-typescript": "2.1.7",
     "karma-typescript-preprocessor": "0.3.1",
-    "powerbi-visuals-tools": "^2.1.1",
-    "puppeteer": "^1.5.0",
-    "tslint": "5.4.3",
+    "karma-webpack": "3.0.5",
+    "powerbi-visuals-api": "2.6.0",
+    "puppeteer": "^1.16.0",
+    "ts-loader": "6.0.1",
+    "ts-node": "8.1.0",
+    "tslint": "5.16.0",
     "tslint-microsoft-contrib": "5.0.0",
-    "typescript": "2.1.4"
+    "typescript": "^2.5.3",
+    "webpack": "4.32.1"
   }
 }

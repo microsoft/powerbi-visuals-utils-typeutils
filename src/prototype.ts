@@ -23,58 +23,53 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+/**
+ * Returns a new object with the provided obj as its prototype.
+ */
+export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
+    function wrapCtor(): void { }
+    wrapCtor.prototype = obj;
 
-module powerbi.extensibility.utils.type {
-    export module Prototype {
-        /**
-         * Returns a new object with the provided obj as its prototype.
-         */
-        export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
-            function wrapCtor(): void { }
-            wrapCtor.prototype = obj;
+    let inherited = new wrapCtor();
 
-            let inherited = new wrapCtor();
+    if (extension)
+        extension(inherited);
 
-            if (extension)
-                extension(inherited);
+    return inherited;
+}
 
-            return inherited;
-        }
+/**
+ * Returns a new object with the provided obj as its prototype
+ * if, and only if, the prototype has not been previously set
+ */
+export function inheritSingle<T>(obj: T): T {
+    let proto = Object.getPrototypeOf(obj);
+    if (proto === Object.prototype || proto === Array.prototype)
+        obj = inherit(obj);
 
-        /**
-         * Returns a new object with the provided obj as its prototype
-         * if, and only if, the prototype has not been previously set
-         */
-        export function inheritSingle<T>(obj: T): T {
-            let proto = Object.getPrototypeOf(obj);
-            if (proto === Object.prototype || proto === Array.prototype)
-                obj = inherit(obj);
+    return obj;
+}
 
-            return obj;
-        }
+/**
+ * Uses the provided callback function to selectively replace contents in the provided array.
+ * @return A new array with those values overriden
+ * or undefined if no overrides are necessary.
+ */
+export function overrideArray<T, TArray>(prototype: TArray, override: (T) => T): TArray {
+    if (!prototype)
+        return;
 
-        /**
-         * Uses the provided callback function to selectively replace contents in the provided array.
-         * @return A new array with those values overriden
-         * or undefined if no overrides are necessary.
-         */
-        export function overrideArray<T, TArray>(prototype: TArray, override: (T) => T): TArray {
-            if (!prototype)
-                return;
+    let overwritten: TArray;
 
-            let overwritten: TArray;
+    for (let i = 0, len = (<T[]><any>prototype).length; i < len; i++) {
+        let value = override(prototype[i]);
+        if (value) {
+            if (!overwritten)
+                overwritten = inherit(prototype);
 
-            for (let i = 0, len = (<T[]><any>prototype).length; i < len; i++) {
-                let value = override(prototype[i]);
-                if (value) {
-                    if (!overwritten)
-                        overwritten = inherit(prototype);
-
-                    overwritten[i] = value;
-                }
-            }
-
-            return overwritten;
+            overwritten[i] = value;
         }
     }
+
+    return overwritten;
 }

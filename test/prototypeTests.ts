@@ -23,62 +23,57 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+import * as Prototype from "../src/prototype";
 
-/// <reference path="_references.ts" />
+describe("Prototype", () => {
+    it("inherit: base", () => {
+        const base = { prop: "abc" };
+        let inherited = Prototype.inherit(base);
 
-module powerbi.extensibility.utils.type.test {
-    import Prototype = powerbi.extensibility.utils.type.Prototype;
-
-    describe("Prototype", () => {
-        it("inherit: base", () => {
-            const base = { prop: "abc" };
-            let inherited = Prototype.inherit(base);
-
-            expect(Object.getPrototypeOf(inherited)).toBe(base);
-            expect(inherited.prop).toBe("abc");
-        });
-
-        it("inherit: including override func", () => {
-            const base = { prop: "abc", prop2: "def" };
-            let inherited = Prototype.inherit(base, arg => arg.prop2 = "ghi");
-
-            expect(Object.getPrototypeOf(inherited)).toBe(base);
-            expect(inherited.prop).toBe("abc");
-            expect(inherited.prop2).toBe("ghi");
-        });
-
-        it("inheritSingle: base", () => {
-            const base = { prop: "abc" };
-
-            let inherited = Prototype.inheritSingle(base);
-            let proto = Object.getPrototypeOf(inherited);
-
-            expect(proto).toBe(base);
-            expect(inherited.prop).toBe("abc");
-        });
-
-        it("inheritSingle: existing object prototype", () => {
-            const existingProto = { prop: "abc" };
-            let base = Prototype.inherit(existingProto);
-
-            expect(Object.getPrototypeOf(base)).toBe(existingProto);
-
-            let inherited = Prototype.inheritSingle(base);
-            let proto = Object.getPrototypeOf(inherited);
-            expect(proto).toBe(existingProto);
-            expect(Object.getPrototypeOf(proto)).toBe(Object.prototype);
-        });
-
-        it("inheritSingle: existing array prototype", () => {
-            const existingProto = ["a", "b", "c"];
-            let base = Prototype.inherit(existingProto);
-
-            expect(Object.getPrototypeOf(base)).toBe(existingProto);
-
-            let inherited = Prototype.inheritSingle(base);
-            let proto = Object.getPrototypeOf(inherited);
-            expect(proto).toBe(existingProto);
-            expect(Object.getPrototypeOf(proto)).toBe(Array.prototype);
-        });
+        expect(Object.getPrototypeOf(inherited)).toBe(base);
+        expect(inherited.prop).toBe("abc");
     });
-}
+
+    it("inherit: including override func", () => {
+        const base = { prop: "abc", prop2: "def" };
+        let inherited = Prototype.inherit(base, arg => arg.prop2 = "ghi");
+
+        expect(Object.getPrototypeOf(inherited)).toBe(base);
+        expect(inherited.prop).toBe("abc");
+        expect(inherited.prop2).toBe("ghi");
+    });
+
+    it("inheritSingle: base", () => {
+        const base = { prop: "abc" };
+
+        let inherited = Prototype.inheritSingle(base);
+        let proto = Object.getPrototypeOf(inherited);
+
+        expect(proto).toBe(base);
+        expect(inherited.prop).toBe("abc");
+    });
+
+    it("inheritSingle: existing object prototype", () => {
+        const existingProto = { prop: "abc" };
+        let base = Prototype.inherit(existingProto);
+
+        expect(Object.getPrototypeOf(base)).toBe(existingProto);
+
+        let inherited = Prototype.inheritSingle(base);
+        let proto = Object.getPrototypeOf(inherited);
+        expect(proto).toBe(existingProto);
+        expect(Object.getPrototypeOf(proto)).toBe(Object.prototype);
+    });
+
+    it("inheritSingle: existing array prototype", () => {
+        const existingProto = ["a", "b", "c"];
+        let base = Prototype.inherit(existingProto);
+
+        expect(Object.getPrototypeOf(base)).toBe(existingProto);
+
+        let inherited = Prototype.inheritSingle(base);
+        let proto = Object.getPrototypeOf(inherited);
+        expect(proto).toBe(existingProto);
+        expect(Object.getPrototypeOf(proto)).toBe(Array.prototype);
+    });
+});

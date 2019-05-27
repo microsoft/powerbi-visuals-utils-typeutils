@@ -23,36 +23,30 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
+// NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
 
-module powerbi.extensibility.utils.type {
-    // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
+/**
+ * Values are in terms of 'pt'
+ * Convert to pixels using PixelConverter.fromPoint
+ */
+/**
+ * Stored in terms of 'pt'
+ * Convert to pixels using PixelConverter.fromPoint
+ */
+export const TextSizeMin: number = 8;
 
-    /**
-     * Values are in terms of 'pt'
-     * Convert to pixels using PixelConverter.fromPoint
-     */
-    export module TextSizeDefaults {
-        /**
-         * Stored in terms of 'pt'
-         * Convert to pixels using PixelConverter.fromPoint
-         */
-        export const TextSizeMin: number = 8;
+/**
+ * Stored in terms of 'pt'
+ * Convert to pixels using PixelConverter.fromPoint
+ */
+export const TextSizeMax: number = 40;
 
-        /**
-         * Stored in terms of 'pt'
-         * Convert to pixels using PixelConverter.fromPoint
-         */
-        export const TextSizeMax: number = 40;
+const TextSizeRange: number = TextSizeMax - TextSizeMin;
 
-        const TextSizeRange: number = TextSizeMax - TextSizeMin;
-
-        /**
-         * Returns the percentage of this value relative to the TextSizeMax
-         * @param textSize - should be given in terms of 'pt'
-         */
-        export function getScale(textSize: number) {
-            return (textSize - TextSizeMin) / TextSizeRange;
-        }
-
-    }
+/**
+ * Returns the percentage of this value relative to the TextSizeMax
+ * @param textSize - should be given in terms of 'pt'
+ */
+export function getScale(textSize: number) {
+    return (textSize - TextSizeMin) / TextSizeRange;
 }
