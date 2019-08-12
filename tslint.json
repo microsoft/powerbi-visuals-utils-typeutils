@@ -7,7 +7,6 @@
         "no-document-domain": true,
         "no-document-write": true,
         "no-exec-script": true,
-        "no-function-constructor-with-string-args": true,
         "no-http-string": [
             true
         ],
