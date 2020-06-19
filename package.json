@@ -56,5 +56,8 @@
     "tslint-microsoft-contrib": "6.2.0",
     "typescript": "3.5.3",
     "webpack": "4.39.1"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1"
   }
 }
