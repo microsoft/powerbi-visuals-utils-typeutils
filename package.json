@@ -57,7 +57,5 @@
     "typescript": "3.5.3",
     "webpack": "4.39.1"
   },
-  "dependencies": {
-    "jquery": "^3.5.1"
-  }
+  "dependencies": {}
 }
