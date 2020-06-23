@@ -1,4 +1,8 @@
 ## 2.2.1
+* Packages update, npm audit fixes 
+* Github actions added
+
+## 2.2.1
 * Packages update
 
 ## 2.2.0
