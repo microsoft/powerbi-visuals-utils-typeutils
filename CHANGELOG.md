@@ -1,3 +1,8 @@
+## 2.3.0
+* Packages update, npm audit fixes 
+* Github actions added
+* Outdated packages removed
+
 ## 2.2.1
 * Packages update
 
