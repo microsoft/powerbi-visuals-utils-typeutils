@@ -1,10 +1,8 @@
-## 2.3.1
-* Obsolete docs deleted
-
 ## 2.3.0
 * Packages update, npm audit fixes 
 * Github actions added
 * Outdated packages removed
+* Obsolete docs removed
 
 ## 2.2.1
 * Packages update
