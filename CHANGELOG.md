@@ -2,6 +2,7 @@
 * Packages update, npm audit fixes 
 * Github actions added
 * Outdated packages removed
+* Obsolete docs removed
 
 ## 2.2.1
 * Packages update
