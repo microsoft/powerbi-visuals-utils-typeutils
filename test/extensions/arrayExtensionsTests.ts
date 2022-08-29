@@ -23,7 +23,7 @@
  *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  *  THE SOFTWARE.
  */
-import {ArrayExtensions} from "../../src/extensions/arrayExtensions";
+import * as ArrayExtensions from "../../src/extensions/arrayExtensions";
 import * as Prototype from "../../src/prototype";
 
 interface TestIdType { id: number; }

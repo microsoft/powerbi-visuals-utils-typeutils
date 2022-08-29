@@ -75,6 +75,7 @@ export function pow10(exp: number): number {
  * Unlike Math.log function this produces integer results with no decimal garbage.
  * @param val Positive value or zero.
  */
+// eslint-disable-next-line max-lines-per-function
 export function log10(val: number): number {
     // Fast Log10() algorithm
     if (val > 1 && val < 1E16) {
@@ -206,7 +207,7 @@ export function log10(val: number): number {
     }
     // JS Math provides only natural log function so we need to calc the 10 base logarithm:
     // logb(x) = logk(x)/logk(b);
-    let log10 = Math.log(val) / LOG_E_10;
+    const log10 = Math.log(val) / LOG_E_10;
     return floorWithPrecision(log10);
 }
 
@@ -225,12 +226,12 @@ export function getPrecision(x: number, decimalDigits?: number): number {
         return undefined;
     }
 
-    let exp = log10(Math.abs(x));
+    const exp = log10(Math.abs(x));
 
     if (exp < MIN_EXP) {
         return 0;
     }
-    let precisionExp = Math.max(exp - decimalDigits, -NEGATIVE_POWERS.length + 1);
+    const precisionExp = Math.max(exp - decimalDigits, -NEGATIVE_POWERS.length + 1);
     return pow10(precisionExp);
 }
 
@@ -306,7 +307,7 @@ export function greaterOrEqualWithPrecision(x: number, y: number, precision?: nu
 export function floorWithPrecision(x: number, precision?: number): number {
     precision = precision != null ? precision : DEFAULT_PRECISION;
 
-    let roundX = Math.round(x);
+    const roundX = Math.round(x);
     if (Math.abs(x - roundX) < precision) {
         return roundX;
     } else {
@@ -322,7 +323,7 @@ export function floorWithPrecision(x: number, precision?: number): number {
 export function ceilWithPrecision(x: number, precision?: number): number {
     precision = detectPrecision(precision, DEFAULT_PRECISION);
 
-    let roundX = Math.round(x);
+    const roundX = Math.round(x);
     if (Math.abs(x - roundX) < precision) {
         return roundX;
     } else {
@@ -377,7 +378,7 @@ export function roundToPrecision(x: number, precision?: number): number {
 
     // Precision must be a Power of 10
     let result = Math.round(x / precision) * precision;
-    let decimalDigits = Math.round(log10(Math.abs(x)) - log10(precision)) + 1;
+    const decimalDigits = Math.round(log10(Math.abs(x)) - log10(precision)) + 1;
     if (decimalDigits > 0 && decimalDigits < 16) {
         result = parseFloat(result.toPrecision(decimalDigits));
     }
@@ -427,8 +428,8 @@ export function project(value: number, fromMin: number, fromSize: number, toMin:
             return NaN;
         }
     }
-    let relativeX = (value - fromMin) / fromSize;
-    let projectedX = toMin + relativeX * toSize;
+    const relativeX = (value - fromMin) / fromSize;
+    const projectedX = toMin + relativeX * toSize;
     return projectedX;
 }
 
