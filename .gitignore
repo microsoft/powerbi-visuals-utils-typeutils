@@ -4,3 +4,4 @@ typings
 /coverage
 /lib
 *.js.map
+.tmp
