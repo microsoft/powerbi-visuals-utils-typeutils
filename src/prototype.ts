@@ -27,10 +27,11 @@
  * Returns a new object with the provided obj as its prototype.
  */
 export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     function wrapCtor(): void { }
     wrapCtor.prototype = obj;
 
-    let inherited = new wrapCtor();
+    const inherited = new wrapCtor();
 
     if (extension)
         extension(inherited);
@@ -43,7 +44,7 @@ export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
  * if, and only if, the prototype has not been previously set
  */
 export function inheritSingle<T>(obj: T): T {
-    let proto = Object.getPrototypeOf(obj);
+    const proto = Object.getPrototypeOf(obj);
     if (proto === Object.prototype || proto === Array.prototype)
         obj = inherit(obj);
 
@@ -62,7 +63,7 @@ export function overrideArray<T, TArray>(prototype: TArray, override: (T) => T):
     let overwritten: TArray;
 
     for (let i = 0, len = (<T[]><any>prototype).length; i < len; i++) {
-        let value = override(prototype[i]);
+        const value = override(prototype[i]);
         if (value) {
             if (!overwritten)
                 overwritten = inherit(prototype);

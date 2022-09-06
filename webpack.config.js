@@ -31,7 +31,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js', '.css']
     },
     output: {
-        path: path.resolve(__dirname, ".tmp/test")
+        path: path.resolve(__dirname, ".tmp")
     },
     plugins: [
     ]

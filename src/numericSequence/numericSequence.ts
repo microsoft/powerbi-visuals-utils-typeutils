@@ -42,8 +42,9 @@ export class NumericSequence {
     public precision: number;
     public sequence: number[];
 
+    // eslint-disable-next-line max-lines-per-function
     public static calculate(range: NumericSequenceRange, expectedCount: number, maxAllowedMargin?: number, minPower?: number, useZeroRefPoint?: boolean, steps?: number[]): NumericSequence {
-        let result = new NumericSequence();
+        const result = new NumericSequence();
 
         if (expectedCount === undefined)
             expectedCount = 10;
@@ -71,18 +72,18 @@ export class NumericSequence {
         let interval = 0;
         let min = 0;
         let max = 9;
-        let canExtendMin = maxAllowedMargin > 0 && !range.hasFixedMin;
-        let canExtendMax = maxAllowedMargin > 0 && !range.hasFixedMax;
+        const canExtendMin = maxAllowedMargin > 0 && !range.hasFixedMin;
+        const canExtendMax = maxAllowedMargin > 0 && !range.hasFixedMax;
 
-        let size = range.getSize();
+        const size = range.getSize();
         let exp = Double.log10(size);
 
         // Account for Exp of steps
-        let stepExp = Double.log10(steps[0]);
+        const stepExp = Double.log10(steps[0]);
         exp = exp - stepExp;
 
         // Account for MaxCount
-        let expectedCountExp = Double.log10(expectedCount);
+        const expectedCountExp = Double.log10(expectedCount);
         exp = exp - expectedCountExp;
 
         // Account for MinPower
@@ -91,10 +92,10 @@ export class NumericSequence {
         // Create array of "good looking" numbers
         if (interval !== 0) {
             // If explicit interval is defined - use it instead of the steps array.
-            let power = Double.pow10(exp);
-            let roundMin = Double.floorToPrecision(range.min, power);
-            let roundMax = Double.ceilToPrecision(range.max, power);
-            let roundRange = NumericSequenceRange.calculateFixedRange(roundMin, roundMax);
+            const power = Double.pow10(exp);
+            const roundMin = Double.floorToPrecision(range.min, power);
+            const roundMax = Double.ceilToPrecision(range.max, power);
+            const roundRange = NumericSequenceRange.calculateFixedRange(roundMin, roundMax);
 
             roundRange.shrinkByStep(range, interval);
             min = roundRange.min;
@@ -105,18 +106,18 @@ export class NumericSequence {
             // No interval defined -> find optimal interval
             let dexp;
             for (dexp = 0; dexp < 3; dexp++) {
-                let e = exp + dexp;
-                let power = Double.pow10(e);
+                const e = exp + dexp;
+                const power = Double.pow10(e);
 
-                let roundMin = Double.floorToPrecision(range.min, power);
-                let roundMax = Double.ceilToPrecision(range.max, power);
+                const roundMin = Double.floorToPrecision(range.min, power);
+                const roundMax = Double.ceilToPrecision(range.max, power);
 
                 // Go throught the steps array looking for the smallest step that produces the right interval count.
-                let stepsCount = steps.length;
-                let stepPower = Double.pow10(e - 1);
+                const stepsCount = steps.length;
+                const stepPower = Double.pow10(e - 1);
                 for (let i = 0; i < stepsCount; i++) {
-                    let step = steps[i] * stepPower;
-                    let roundRange = NumericSequenceRange.calculateFixedRange(roundMin, roundMax, useZeroRefPoint);
+                    const step = steps[i] * stepPower;
+                    const roundRange = NumericSequenceRange.calculateFixedRange(roundMin, roundMax, useZeroRefPoint);
                     roundRange.shrinkByStep(range, step);
 
                     // If the range is based on Data we might need to extend it to provide nice data margins.
@@ -157,10 +158,10 @@ export class NumericSequence {
         result.canExtendMax = canExtendMax;
 
         // Fill in the Sequence
-        let precision = Double.getPrecision(interval, 0);
+        const precision = Double.getPrecision(interval, 0);
         result.precision = precision;
 
-        let sequence = [];
+        const sequence = [];
 
         let x = Double.roundToPrecision(min, precision);
         sequence.push(x);
@@ -195,8 +196,8 @@ export class NumericSequence {
         // Calculate step
         for (let i = 0; i < steps.length; i++) {
             step = steps[i];
-            let maxStepCount = Double.ceilWithPrecision(max / step);
-            let minStepCount = Double.floorWithPrecision(min / step);
+            const maxStepCount = Double.ceilWithPrecision(max / step);
+            const minStepCount = Double.floorWithPrecision(min / step);
             stepCount = maxStepCount - minStepCount;
 
             if (stepCount <= maxCount) {
@@ -209,7 +210,7 @@ export class NumericSequence {
         offset = offset % step;
 
         // Create sequence
-        let result = new NumericSequence();
+        const result = new NumericSequence();
         result.sequence = [];
         for (let x = min + offset; ; x += step) {
             result.sequence.push(x);
@@ -224,9 +225,9 @@ export class NumericSequence {
     }
 
     public trimMinMax(min: number, max: number): void {
-        let minMargin = (min - this.min) / this.interval;
-        let maxMargin = (this.max - max) / this.interval;
-        let marginPrecision = 0.001;
+        const minMargin = (min - this.min) / this.interval;
+        const maxMargin = (this.max - max) / this.interval;
+        const marginPrecision = 0.001;
 
         if (!this.canExtendMin || (minMargin > this.maxAllowedMargin && minMargin > marginPrecision)) {
             this.min = min;

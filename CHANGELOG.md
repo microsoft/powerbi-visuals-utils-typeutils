@@ -1,3 +1,7 @@
+## 2.4.0
+* Migrated to ESlint
+* Vulnerabilities patched
+
 ## 2.3.1
 * Packages update
 * Vulnerabilities patched

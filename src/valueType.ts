@@ -33,7 +33,7 @@ import GeographyTypeDescriptor = powerbi.GeographyTypeDescriptor;
 import MiscellaneousTypeDescriptor = powerbi.MiscellaneousTypeDescriptor;
 import FormattingTypeDescriptor = powerbi.FormattingTypeDescriptor;
 // powerbi.extensibility.utils.type
-import { EnumExtensions } from "./extensions/enumExtensions";
+import * as EnumExtensions from "./extensions/enumExtensions";
 import { equals } from "./jsonComparer";
 
 export interface IValueTypeDescriptor extends ValueTypeDescriptor {
@@ -143,7 +143,7 @@ export class ValueType implements IValueTypeDescriptor {
             if (descriptor.operations.searchEnabled) return ValueType.fromExtendedType(ExtendedType.SearchEnabled);
         }
         if ((<any>descriptor).variant) {
-            let variantTypes = (<any>descriptor).variant.map((variantType) => ValueType.fromDescriptor(variantType));
+            const variantTypes = (<any>descriptor).variant.map((variantType) => ValueType.fromDescriptor(variantType));
             return ValueType.fromVariant(variantTypes);
         }
 
@@ -154,7 +154,7 @@ export class ValueType implements IValueTypeDescriptor {
     public static fromExtendedType(extendedType: ExtendedType): ValueType {
         extendedType = extendedType || ExtendedType.Null;
 
-        let primitiveType = getPrimitiveType(extendedType),
+        const primitiveType = getPrimitiveType(extendedType),
             category = getCategoryFromExtendedType(extendedType);
 
         return ValueType.fromPrimitiveTypeAndCategory(primitiveType, category);
@@ -184,9 +184,9 @@ export class ValueType implements IValueTypeDescriptor {
 
     /** Determines if the specified type is compatible from at least one of the otherTypes. */
     public static isCompatibleTo(typeDescriptor: IValueTypeDescriptor, otherTypes: IValueTypeDescriptor[]): boolean {
-        let valueType = ValueType.fromDescriptor(typeDescriptor);
-        for (let otherType of otherTypes) {
-            let otherValueType = ValueType.fromDescriptor(otherType);
+        const valueType = ValueType.fromDescriptor(typeDescriptor);
+        for (const otherType of otherTypes) {
+            const otherValueType = ValueType.fromDescriptor(otherType);
 
             if (otherValueType.isCompatibleFrom(valueType))
                 return true;
@@ -197,7 +197,7 @@ export class ValueType implements IValueTypeDescriptor {
 
     /** Determines if the instance ValueType is convertable from the 'other' ValueType. */
     public isCompatibleFrom(other: ValueType): boolean {
-        let otherPrimitiveType = other.primitiveType;
+        const otherPrimitiveType = other.primitiveType;
         if (this === other ||
             this.primitiveType === otherPrimitiveType ||
             otherPrimitiveType === PrimitiveType.Null ||
@@ -672,9 +672,9 @@ function getCategoryFromExtendedType(extendedType: ExtendedType): string {
         // Check for ExtendedType declaration without a primitive type.
         // If exists, use it as category (e.g. Longitude rather than Longitude_Double)
         // Otherwise use the ExtendedType declaration with a primitive type (e.g. Address)
-        let delimIdx = category.lastIndexOf("_");
+        const delimIdx = category.lastIndexOf("_");
         if (delimIdx > 0) {
-            let baseCategory: string = category.slice(0, delimIdx);
+            const baseCategory: string = category.slice(0, delimIdx);
             if (ExtendedTypeStrings[baseCategory]) {
                 category = baseCategory;
             }
@@ -684,7 +684,7 @@ function getCategoryFromExtendedType(extendedType: ExtendedType): string {
 }
 
 function toExtendedType(primitiveType: PrimitiveType, category?: string): ExtendedType {
-    let primitiveString = PrimitiveTypeStrings[primitiveType];
+    const primitiveString = PrimitiveTypeStrings[primitiveType];
     let t = ExtendedTypeStrings[primitiveString];
     if (t == null) {
         t = ExtendedType.Null;
@@ -693,7 +693,7 @@ function toExtendedType(primitiveType: PrimitiveType, category?: string): Extend
     if (primitiveType && category) {
         let categoryType: ExtendedType = ExtendedTypeStrings[category];
         if (categoryType) {
-            let categoryPrimitiveType = getPrimitiveType(categoryType);
+            const categoryPrimitiveType = getPrimitiveType(categoryType);
             if (categoryPrimitiveType === PrimitiveType.Null) {
                 // Category supports multiple primitive types, check if requested primitive type is supported
                 // (note: important to use t here rather than primitiveType as it may include primitive type flags)

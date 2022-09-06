@@ -64,8 +64,8 @@ export class NumericSequenceRange {
                 // Interval is calculated based on the number:
                 // 1. Integers below 10,000 are extended by 0.5: so the [2006-2006] empty range is extended to [2005.5-2006.5] range and the ForsedSingleStop=2006
                 // 2. Other numbers are extended by half of their power: [700,001-700,001] => [650,001-750,001] and the ForsedSingleStop=null as we want the intervals to be calculated to cover the range.
-                let value = this.min;
-                let exp = Double.log10(Math.abs(value));
+                const value = this.min;
+                const exp = Double.log10(Math.abs(value));
                 let step: number;
                 if (exp >= 0 && exp < 4) {
                     step = 0.5;
@@ -82,7 +82,7 @@ export class NumericSequenceRange {
 
     private _ensureDirection() {
         if (this.min > this.max) {
-            let temp = this.min;
+            const temp = this.min;
             this.min = this.max;
             this.max = temp;
         }
@@ -105,11 +105,11 @@ export class NumericSequenceRange {
     }
 
     public static calculate(dataMin: number, dataMax: number, fixedMin?: number, fixedMax?: number, includeZero?: boolean): NumericSequenceRange {
-        let result = new NumericSequenceRange();
+        const result = new NumericSequenceRange();
         result.includeZero = includeZero ? true : false;
-        result.hasDataRange = ValueUtil.hasValue(dataMin) && ValueUtil.hasValue(dataMax);
-        result.hasFixedMin = ValueUtil.hasValue(fixedMin);
-        result.hasFixedMax = ValueUtil.hasValue(fixedMax);
+        result.hasDataRange = hasValue(dataMin) && hasValue(dataMax);
+        result.hasFixedMin = hasValue(fixedMin);
+        result.hasFixedMax = hasValue(fixedMax);
 
         dataMin = Double.ensureInRange(dataMin, NumericSequenceRange.MIN_SUPPORTED_DOUBLE, NumericSequenceRange.MAX_SUPPORTED_DOUBLE);
         dataMax = Double.ensureInRange(dataMax, NumericSequenceRange.MIN_SUPPORTED_DOUBLE, NumericSequenceRange.MAX_SUPPORTED_DOUBLE);
@@ -146,7 +146,7 @@ export class NumericSequenceRange {
     }
 
     public static calculateDataRange(dataMin: number, dataMax: number, includeZero?: boolean): NumericSequenceRange {
-        if (!ValueUtil.hasValue(dataMin) || !ValueUtil.hasValue(dataMax)) {
+        if (!hasValue(dataMin) || !hasValue(dataMax)) {
             return NumericSequenceRange.calculateFixedRange(0, NumericSequenceRange.DEFAULT_MAX);
         } else {
             return NumericSequenceRange.calculate(dataMin, dataMax, null, null, includeZero);
@@ -154,7 +154,7 @@ export class NumericSequenceRange {
     }
 
     public static calculateFixedRange(fixedMin: number, fixedMax: number, includeZero?: boolean): NumericSequenceRange {
-        let result = new NumericSequenceRange();
+        const result = new NumericSequenceRange();
         result.hasDataRange = false;
         result.includeZero = includeZero;
         result.min = fixedMin;
@@ -170,8 +170,6 @@ export class NumericSequenceRange {
 }
 
 /** Note: Exported for testability */
-export module ValueUtil {
-    export function hasValue(value: any): boolean {
-        return value !== undefined && value !== null;
-    }
+export function hasValue(value: any): boolean {
+    return value !== undefined && value !== null;
 }
