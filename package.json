@@ -1,6 +1,6 @@
 {
   "name": "powerbi-visuals-utils-typeutils",
-  "version": "2.4.1",
+  "version": "3.0.0",
   "description": "TypeUtils",
   "main": "lib/index.js",
   "module": "lib/index.js",
