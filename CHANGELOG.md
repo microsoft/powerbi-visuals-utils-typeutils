@@ -1,3 +1,8 @@
+## 6.0.0
+* Migrated to playwright
+* Packages update
+* Vulnerabilities patched
+
 ## 2.4.0 - 3.0.0
 * Migrated to ESlint
 * Vulnerabilities patched
