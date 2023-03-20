@@ -1,3 +1,7 @@
+## 6.0.1
+* Packages update
+* Vulnerabilities patched
+
 ## 6.0.0
 * Migrated to playwright
 * Packages update
