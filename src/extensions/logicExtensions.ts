@@ -24,8 +24,6 @@
  *  THE SOFTWARE.
  */
 // NOTE: this file includes standalone utilities that should have no dependencies on external libraries, including jQuery.
-export module LogicExtensions {
-    export function XOR(a: boolean, b: boolean): boolean {
-        return (a || b) && !(a && b);
-    }
+export function XOR(a: boolean, b: boolean): boolean {
+    return (a || b) && !(a && b);
 }
