@@ -370,7 +370,7 @@ export function ceilToPrecision(x: number, precision?: number): number {
  * @param precision Precision value.
  */
 export function roundToPrecision(x: number, precision?: number): number {
-    precision = detectPrecision(precision, DEFAULT_PRECISION);
+    precision = detectPrecision(precision, x);
 
     if (precision === 0 || x === 0) {
         return x;
