@@ -178,6 +178,11 @@ describe("Double", () => {
         expect(Double.roundToPrecision(1.40000000001E-207, 1E-208)).toBe(1.4E-207);
         expect(Double.roundToPrecision(1.41E-207, 1E-208)).toBe(1.4E-207);
         expect(Double.roundToPrecision(1.41E-207, 1E-209)).toBe(1.41E-207);
+
+        expect(Double.roundToPrecision(.2)).toBe(.2);
+        expect(Double.roundToPrecision(1.2)).toBe(1.2);
+        expect(Double.roundToPrecision(11.2)).toBe(11.2);
+        expect(Double.roundToPrecision(111.2)).toBe(111.2);
     });
 
     it("Double removeDecimalNoise()", () => {
