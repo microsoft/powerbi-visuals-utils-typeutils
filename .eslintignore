@@ -3,7 +3,5 @@ dist
 coverage
 test
 .eslintrc.js
-karma.conf.ts
-webpack.config.js
-test.webpack.config.js
+vite.config.ts
 lib
