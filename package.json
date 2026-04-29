@@ -28,7 +28,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "npx eslint ."
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.59.1",

@@ -75,7 +75,7 @@ export function pow10(exp: number): number {
  * Unlike Math.log function this produces integer results with no decimal garbage.
  * @param val Positive value or zero.
  */
-// eslint-disable-next-line max-lines-per-function
+ 
 export function log10(val: number): number {
     // Fast Log10() algorithm
     if (val > 1 && val < 1E16) {

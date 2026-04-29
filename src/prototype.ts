@@ -27,7 +27,6 @@
  * Returns a new object with the provided obj as its prototype.
  */
 export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
     function wrapCtor(): void { }
     wrapCtor.prototype = obj;
 

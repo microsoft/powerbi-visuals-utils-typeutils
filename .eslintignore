@@ -1,7 +1,0 @@
-node_modules
-dist
-coverage
-test
-.eslintrc.js
-vite.config.ts
-lib
