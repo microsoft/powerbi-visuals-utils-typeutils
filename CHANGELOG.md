@@ -1,5 +1,5 @@
 
-## 6.1.0
+## 6.7.0
 * Migrated from Webpack to Vite
 * Migrated from Karma + Jasmine to Vitest
 * Removed ts-node, playwright-chromium, and 15 Karma/Webpack dependencies
