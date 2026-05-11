@@ -5,13 +5,15 @@
       "experimentalDecorators": true,
       "declaration": true,
       "sourceMap": true,
-      "module": "ES2015",
-      "moduleResolution": "node",
-      "target": "ES2015",
+      "skipLibCheck": true, // Required due to type errors in powerbi-visuals-api declarations. Can be removed once the type errors are fixed in powerbi-visuals-api.
+      "module": "ESNext",
+      "moduleResolution": "bundler",
+      "target": "ES2020",
       "lib": [
-        "es2015",
+        "ES2020",
         "dom"
       ],
+      "rootDir": "./src",
       "outDir": "./lib"
     },
     "files": [

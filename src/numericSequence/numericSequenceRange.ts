@@ -31,13 +31,13 @@ export class NumericSequenceRange {
     private static MIN_SUPPORTED_DOUBLE = -1E307;
     private static MAX_SUPPORTED_DOUBLE = 1E307;
 
-    public min: number;
-    public max: number;
-    public includeZero: boolean;
-    public forcedSingleStop: number;
-    public hasDataRange: boolean;
-    public hasFixedMin: boolean;
-    public hasFixedMax: boolean;
+    public min!: number;
+    public max!: number;
+    public includeZero!: boolean;
+    public forcedSingleStop!: number;
+    public hasDataRange!: boolean;
+    public hasFixedMin!: boolean;
+    public hasFixedMax!: boolean;
 
     private _ensureIncludeZero(): void {
         if (this.includeZero) {
@@ -72,7 +72,7 @@ export class NumericSequenceRange {
                     this.forcedSingleStop = value;
                 } else {
                     step = Double.pow10(exp) / 2;
-                    this.forcedSingleStop = null;
+                    this.forcedSingleStop = null as any;
                 }
                 this.min = value - step;
                 this.max = value + step;
@@ -116,14 +116,14 @@ export class NumericSequenceRange {
 
         // Calculate the range using the min, max, dataRange
         if (result.hasFixedMin && result.hasFixedMax) {
-            result.min = fixedMin;
-            result.max = fixedMax;
+            result.min = fixedMin!;
+            result.max = fixedMax!;
         } else if (result.hasFixedMin) {
-            result.min = fixedMin;
-            result.max = dataMax > fixedMin ? dataMax : fixedMin;
+            result.min = fixedMin!;
+            result.max = dataMax > fixedMin! ? dataMax : fixedMin!;
         } else if (result.hasFixedMax) {
-            result.min = dataMin < fixedMax ? dataMin : fixedMax;
-            result.max = fixedMax;
+            result.min = dataMin < fixedMax! ? dataMin : fixedMax!;
+            result.max = fixedMax!;
         } else if (result.hasDataRange) {
             result.min = dataMin;
             result.max = dataMax;
@@ -149,14 +149,14 @@ export class NumericSequenceRange {
         if (!hasValue(dataMin) || !hasValue(dataMax)) {
             return NumericSequenceRange.calculateFixedRange(0, NumericSequenceRange.DEFAULT_MAX);
         } else {
-            return NumericSequenceRange.calculate(dataMin, dataMax, null, null, includeZero);
+            return NumericSequenceRange.calculate(dataMin, dataMax, undefined, undefined, includeZero);
         }
     }
 
     public static calculateFixedRange(fixedMin: number, fixedMax: number, includeZero?: boolean): NumericSequenceRange {
         const result = new NumericSequenceRange();
         result.hasDataRange = false;
-        result.includeZero = includeZero;
+        result.includeZero = includeZero || false;
         result.min = fixedMin;
         result.max = fixedMax;
         result._ensureIncludeZero();

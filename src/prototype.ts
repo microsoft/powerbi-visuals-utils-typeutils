@@ -30,7 +30,7 @@ export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
     function wrapCtor(): void { }
     wrapCtor.prototype = obj;
 
-    const inherited = new wrapCtor();
+    const inherited = new (wrapCtor as any)();
 
     if (extension)
         extension(inherited);
@@ -55,19 +55,19 @@ export function inheritSingle<T>(obj: T): T {
  * @return A new array with those values overriden
  * or undefined if no overrides are necessary.
  */
-export function overrideArray<T, TArray>(prototype: TArray, override: (T) => T): TArray {
+export function overrideArray<T, TArray>(prototype: TArray, override: (item: T) => T): TArray | undefined {
     if (!prototype)
-        return;
+        return undefined;
 
-    let overwritten: TArray;
+    let overwritten: TArray | undefined;
 
     for (let i = 0, len = (<T[]><any>prototype).length; i < len; i++) {
-        const value = override(prototype[i]);
+        const value = override((prototype as any)[i]);
         if (value) {
             if (!overwritten)
                 overwritten = inherit(prototype);
 
-            overwritten[i] = value;
+            (overwritten as any)[i] = value;
         }
     }
 

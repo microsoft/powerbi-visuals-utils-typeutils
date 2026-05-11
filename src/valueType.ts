@@ -45,20 +45,20 @@ export class ValueType implements IValueTypeDescriptor {
     private static typeCache: { [id: string]: ValueType } = {};
 
     private underlyingType: ExtendedType;
-    private category: string;
+    private category!: string;
 
-    private temporalType: TemporalType;
-    private geographyType: GeographyType;
-    private miscType: MiscellaneousType;
-    private formattingType: FormattingType;
-    private enumType: IEnumType;
-    private scriptingType: ScriptType;
-    private variationTypes: ValueType[];
+    private temporalType!: TemporalType;
+    private geographyType!: GeographyType;
+    private miscType!: MiscellaneousType;
+    private formattingType!: FormattingType;
+    private enumType!: IEnumType;
+    private scriptingType!: ScriptType;
+    private variationTypes!: ValueType[];
 
     /** Do not call the ValueType constructor directly. Use the ValueType.fromXXX methods. */
     constructor(underlyingType: ExtendedType, category?: string, enumType?: IEnumType, variantTypes?: ValueType[]) {
         this.underlyingType = underlyingType;
-        this.category = category;
+        this.category = category!;
 
         if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Temporal)) {
             this.temporalType = new TemporalType(underlyingType);
@@ -73,13 +73,13 @@ export class ValueType implements IValueTypeDescriptor {
             this.formattingType = new FormattingType(underlyingType);
         }
         if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Enumeration)) {
-            this.enumType = enumType;
+            this.enumType = enumType!;
         }
         if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Scripting)) {
             this.scriptingType = new ScriptType(underlyingType);
         }
         if (EnumExtensions.hasFlag(underlyingType, ExtendedType.Variant)) {
-            this.variationTypes = variantTypes;
+            this.variationTypes = variantTypes!;
         }
     }
 
@@ -143,7 +143,7 @@ export class ValueType implements IValueTypeDescriptor {
             if (descriptor.operations.searchEnabled) return ValueType.fromExtendedType(ExtendedType.SearchEnabled);
         }
         if ((<any>descriptor).variant) {
-            const variantTypes = (<any>descriptor).variant.map((variantType) => ValueType.fromDescriptor(variantType));
+            const variantTypes = (<any>descriptor).variant.map((variantType: any) => ValueType.fromDescriptor(variantType));
             return ValueType.fromVariant(variantTypes);
         }
 
@@ -163,7 +163,7 @@ export class ValueType implements IValueTypeDescriptor {
     /** Creates or retrieves a ValueType object for the specified PrimitiveType and data category. */
     public static fromPrimitiveTypeAndCategory(primitiveType: PrimitiveType, category?: string): ValueType {
         primitiveType = primitiveType || PrimitiveType.Null;
-        category = category || null;
+        category = category || undefined;
 
         let id = primitiveType.toString();
         if (category)
@@ -174,12 +174,12 @@ export class ValueType implements IValueTypeDescriptor {
 
     /** Creates a ValueType to describe the given IEnumType. */
     public static fromEnum(enumType: IEnumType): ValueType {
-        return new ValueType(ExtendedType.Enumeration, null, enumType);
+        return new ValueType(ExtendedType.Enumeration, undefined, enumType);
     }
 
     /** Creates a ValueType to describe the given Variant type. */
     public static fromVariant(variantTypes: ValueType[]): ValueType {
-        return new ValueType(ExtendedType.Variant, /* category */null, /* enumType */null, variantTypes);
+        return new ValueType(ExtendedType.Variant, /* category */undefined, /* enumType */undefined, variantTypes);
     }
 
     /** Determines if the specified type is compatible from at least one of the otherTypes. */
@@ -663,9 +663,9 @@ function isPrimitiveType(extendedType: ExtendedType): boolean {
     return (extendedType & PrimitiveTypeWithFlagsMask) === extendedType;
 }
 
-function getCategoryFromExtendedType(extendedType: ExtendedType): string {
+function getCategoryFromExtendedType(extendedType: ExtendedType): string | undefined {
     if (isPrimitiveType(extendedType))
-        return null;
+        return undefined;
 
     let category = ExtendedTypeStrings[extendedType];
     if (category) {
@@ -675,23 +675,23 @@ function getCategoryFromExtendedType(extendedType: ExtendedType): string {
         const delimIdx = category.lastIndexOf("_");
         if (delimIdx > 0) {
             const baseCategory: string = category.slice(0, delimIdx);
-            if (ExtendedTypeStrings[baseCategory]) {
+            if ((ExtendedTypeStrings as any)[baseCategory]) {
                 category = baseCategory;
             }
         }
     }
-    return category || null;
+    return category || undefined;
 }
 
 function toExtendedType(primitiveType: PrimitiveType, category?: string): ExtendedType {
     const primitiveString = PrimitiveTypeStrings[primitiveType];
-    let t = ExtendedTypeStrings[primitiveString];
+    let t: ExtendedType = (ExtendedTypeStrings as any)[primitiveString];
     if (t == null) {
         t = ExtendedType.Null;
     }
 
     if (primitiveType && category) {
-        let categoryType: ExtendedType = ExtendedTypeStrings[category];
+        let categoryType: ExtendedType = (ExtendedTypeStrings as any)[category];
         if (categoryType) {
             const categoryPrimitiveType = getPrimitiveType(categoryType);
             if (categoryPrimitiveType === PrimitiveType.Null) {

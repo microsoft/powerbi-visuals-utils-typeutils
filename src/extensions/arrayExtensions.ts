@@ -24,11 +24,11 @@
  *  THE SOFTWARE.
  */
 export interface ArrayIdItems<T> extends Array<T> {
-    withId(id: number): T;
+    withId(id: number): T | undefined;
 }
 
 export interface ArrayNamedItems<T> extends Array<T> {
-    withName(name: string): T;
+    withName(name: string): T | undefined;
 }
 
 /**
@@ -145,8 +145,8 @@ export function copy<T>(source: T[]): T[] {
   */
 export function sequenceEqual<T, U>(left: T[], right: U[], comparison: (x: T, y: U) => boolean): boolean {
     // Normalize falsy to null
-    if (!left) { left = null; }
-    if (!right) { right = null; }
+    if (!left) { left = null as any; }
+    if (!right) { right = null as any; }
 
     // T can be same as U, and it is possible for left and right to be the same array object...
     if (left === <any[]>right) {
@@ -174,14 +174,14 @@ export function sequenceEqual<T, U>(left: T[], right: U[], comparison: (x: T, y:
  * Returns null if the specified array is empty.
  * Otherwise returns the specified array.
  */
-export function emptyToNull<T>(array: T[]): T[] {
+export function emptyToNull<T>(array: T[]): T[] | null {
     if (array && array.length === 0) {
         return null;
     }
     return array;
 }
 
-export function indexOf<T>(array: T[], predicate: (T) => boolean): number {
+export function indexOf<T>(array: T[], predicate: (item: T) => boolean): number {
 
     for (let i = 0, len = array.length; i < len; ++i) {
         if (predicate(array[i])) {
@@ -218,15 +218,16 @@ export function extendWithId<T>(array: { id: number }[]): ArrayIdItems<T> {
 /**
  * Finds and returns the first item with a matching ID.
  */
-export function findWithId<T>(array: T[], id: number): T {
+export function findWithId<T>(array: T[], id: number): T | undefined {
     for (let i = 0, len = array.length; i < len; i++) {
         const item = array[i];
         if ((<any>item).id === id)
             return item;
     }
+    return undefined;
 }
 
-function withId<T>(id: number): T {
+function withId<T>(this: T[], id: number): T | undefined {
     return findWithId<T>(this, id);
 }
 
@@ -243,10 +244,11 @@ export function extendWithName<T>(array: { name: string }[]): ArrayNamedItems<T>
     return extended;
 }
 
-export function findItemWithName<T>(array: T[], name: string): T {
+export function findItemWithName<T>(array: T[], name: string): T | undefined {
     const index = indexWithName(array, name);
     if (index >= 0)
         return array[index];
+    return undefined;
 }
 
 export function indexWithName<T>(array: T[], name: string): number {
@@ -304,7 +306,7 @@ export function removeFirst<T>(list: T[], value: T): boolean {
 /**
  * Finds and returns the first item with a matching name.
  */
-function withName<T>(name: string): T {
+function withName<T>(this: T[], name: string): T | undefined {
     return findItemWithName(this, name);
 }
 
@@ -337,7 +339,7 @@ export function isInArray<T>(array: T[], lookupItem: T, compareCallback: (item1:
 }
 
 /** Checks if the given object is an Array, and looking all the way up the prototype chain. */
-export function isArrayOrInheritedArray(obj): obj is Array<any> {
+export function isArrayOrInheritedArray(obj: any): obj is Array<any> {
 
     let nextPrototype = obj;
     while (nextPrototype != null) {

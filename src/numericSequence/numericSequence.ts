@@ -31,16 +31,16 @@ export class NumericSequence {
     private static MIN_COUNT: number = 1;
     private static MAX_COUNT: number = 1000;
 
-    private maxAllowedMargin: number;
-    private canExtendMin: boolean;
-    private canExtendMax: boolean;
+    private maxAllowedMargin!: number;
+    private canExtendMin!: boolean;
+    private canExtendMax!: boolean;
 
-    public interval: number;
-    public intervalOffset: number;
-    public min: number;
-    public max: number;
-    public precision: number;
-    public sequence: number[];
+    public interval!: number;
+    public intervalOffset!: number;
+    public min!: number;
+    public max!: number;
+    public precision!: number;
+    public sequence!: number[];
 
     public static calculate(range: NumericSequenceRange, expectedCount: number, maxAllowedMargin?: number, minPower?: number, useZeroRefPoint?: boolean, steps?: number[]): NumericSequence {
         const result = new NumericSequence();
@@ -87,7 +87,7 @@ export class NumericSequence {
 
         // Account for MinPower
         exp = Math.max(exp, minPower - stepExp + 1);
-        let count = undefined;
+        let count: number | undefined = undefined;
         // Create array of "good looking" numbers
         if (interval !== 0) {
             // If explicit interval is defined - use it instead of the steps array.
@@ -143,7 +143,7 @@ export class NumericSequence {
         }
 
         // Avoid extreme count cases (>1000 ticks)
-        if (count > expectedCount * 32 || count > NumericSequence.MAX_COUNT) {
+        if (count! > expectedCount * 32 || count! > NumericSequence.MAX_COUNT) {
             count = Math.min(expectedCount * 32, NumericSequence.MAX_COUNT);
             interval = (max - min) / count;
         }
@@ -157,14 +157,14 @@ export class NumericSequence {
         result.canExtendMax = canExtendMax;
 
         // Fill in the Sequence
-        const precision = Double.getPrecision(interval, 0);
+        const precision = Double.getPrecision(interval, 0) || 0;
         result.precision = precision;
 
         const sequence = [];
 
         let x = Double.roundToPrecision(min, precision);
         sequence.push(x);
-        for (let i = 0; i < count; i++) {
+        for (let i = 0; i < count!; i++) {
             x = Double.roundToPrecision(x + interval, precision);
             sequence.push(x);
         }

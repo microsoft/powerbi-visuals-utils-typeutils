@@ -30,13 +30,13 @@
     "lint": "npx eslint ."
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^8.59.1",
-    "@typescript-eslint/parser": "^8.59.1",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
     "@vitest/coverage-v8": "^4.1.5",
-    "eslint": "^10.2.1",
+    "eslint": "^10.3.0",
     "eslint-plugin-powerbi-visuals": "^1.1.1",
     "powerbi-visuals-api": "^5.11.0",
-    "typescript": "~5.9.3",
+    "typescript": "^6.0.3",
     "vitest": "^4.1.5"
   },
   "optionalDependencies": {
