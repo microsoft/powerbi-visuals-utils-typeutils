@@ -75,7 +75,7 @@ export function pow10(exp: number): number {
  * Unlike Math.log function this produces integer results with no decimal garbage.
  * @param val Positive value or zero.
  */
-// eslint-disable-next-line max-lines-per-function
+ 
 export function log10(val: number): number {
     // Fast Log10() algorithm
     if (val > 1 && val < 1E16) {
@@ -217,7 +217,7 @@ export function log10(val: number): number {
  * @param x Value.
  * @param decimalDigits How many decimal digits are meaningfull.
  */
-export function getPrecision(x: number, decimalDigits?: number): number {
+export function getPrecision(x: number, decimalDigits?: number): number | undefined {
     if (decimalDigits === undefined) {
         decimalDigits = DEFAULT_PRECISION_IN_DECIMAL_DIGITS;
     }
@@ -470,7 +470,7 @@ export function toIncrement(value: number, increment: number): number {
  * x and y defined retursn twelve digits of precision based on the minimum of the two
  * if no applicable precision is found based on those (such as x and y being zero), the default precision is used
  */
-export function detectPrecision(precision: number, x: number, y?: number): number {
+export function detectPrecision(precision: number | undefined, x: number, y?: number): number {
     if (precision !== undefined) {
         return precision;
     }

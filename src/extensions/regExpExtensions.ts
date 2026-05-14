@@ -34,7 +34,7 @@
  * @param value - string to search wiht regex
  * @param start - index within value to start regex
  */
-export function run(regex: RegExp, value: string, start?: number): RegExpExecArray {
+export function run(regex: RegExp, value: string, start?: number): RegExpExecArray | null {
     regex.lastIndex = start || 0;
     return regex.exec(value);
 }

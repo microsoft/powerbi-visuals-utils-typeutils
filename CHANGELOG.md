@@ -1,3 +1,12 @@
+## 7.0.0
+* Migrated test runner from Karma to Vitest and added coverage reporting.
+* Upgraded linting to ESLint 10 with flat config (`eslint.config.js`) and updated TypeScript ESLint tooling.
+* Modernized TypeScript configuration for ES2020 + `bundler` module resolution with strict mode compatibility settings.
+* Updated GitHub Actions workflows to current actions (`checkout@v4`, `setup-node@v4`) and Node.js 20/22 CI matrix.
+* Added Dependabot configuration for npm and GitHub Actions dependency update automation.
+* Updated major development dependencies (TypeScript 6, Vitest 4, ESLint 10, `powerbi-visuals-api` 5.11.0).
+
+
 ## 6.0.3
 * powerbi-visuals-api update to 5.9.0
 

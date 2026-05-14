@@ -143,7 +143,7 @@ export class ValueType implements IValueTypeDescriptor {
             if (descriptor.operations.searchEnabled) return ValueType.fromExtendedType(ExtendedType.SearchEnabled);
         }
         if ((<any>descriptor).variant) {
-            const variantTypes = (<any>descriptor).variant.map((variantType) => ValueType.fromDescriptor(variantType));
+            const variantTypes = (<any>descriptor).variant.map((variantType: IValueTypeDescriptor) => ValueType.fromDescriptor(variantType));
             return ValueType.fromVariant(variantTypes);
         }
 
@@ -654,6 +654,7 @@ enum ExtendedTypeStrings {
 const PrimitiveTypeMask = 0xFF;
 const PrimitiveTypeWithFlagsMask = 0xFFFF;
 const PrimitiveTypeFlagsExcludedMask = 0xFFFF0000;
+const ExtendedTypeStringMap = ExtendedTypeStrings as unknown as Record<string, ExtendedType>;
 
 function getPrimitiveType(extendedType: ExtendedType): PrimitiveType {
     return extendedType & PrimitiveTypeMask;
@@ -675,7 +676,7 @@ function getCategoryFromExtendedType(extendedType: ExtendedType): string {
         const delimIdx = category.lastIndexOf("_");
         if (delimIdx > 0) {
             const baseCategory: string = category.slice(0, delimIdx);
-            if (ExtendedTypeStrings[baseCategory]) {
+            if (ExtendedTypeStringMap[baseCategory]) {
                 category = baseCategory;
             }
         }
@@ -685,13 +686,13 @@ function getCategoryFromExtendedType(extendedType: ExtendedType): string {
 
 function toExtendedType(primitiveType: PrimitiveType, category?: string): ExtendedType {
     const primitiveString = PrimitiveTypeStrings[primitiveType];
-    let t = ExtendedTypeStrings[primitiveString];
+    let t = ExtendedTypeStringMap[primitiveString];
     if (t == null) {
         t = ExtendedType.Null;
     }
 
     if (primitiveType && category) {
-        let categoryType: ExtendedType = ExtendedTypeStrings[category];
+        let categoryType: ExtendedType = ExtendedTypeStringMap[category];
         if (categoryType) {
             const categoryPrimitiveType = getPrimitiveType(categoryType);
             if (categoryPrimitiveType === PrimitiveType.Null) {
