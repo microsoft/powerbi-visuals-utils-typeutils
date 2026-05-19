@@ -42,7 +42,6 @@ export class NumericSequence {
     public precision: number;
     public sequence: number[];
 
-     
     public static calculate(range: NumericSequenceRange, expectedCount: number, maxAllowedMargin?: number, minPower?: number, useZeroRefPoint?: boolean, steps?: number[]): NumericSequence {
         const result = new NumericSequence();
 

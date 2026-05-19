@@ -9,7 +9,7 @@
       "strict": true,
       "strictNullChecks": false,
       "strictPropertyInitialization": false,
-      "skipLibCheck": true, 
+      "skipLibCheck": true, // Required due to type errors in powerbi-visuals-api declarations. Can be removed once they are fixed upstream.
       "lib": [
         "es2020",
         "dom"
