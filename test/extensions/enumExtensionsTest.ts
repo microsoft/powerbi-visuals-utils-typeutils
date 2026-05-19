@@ -26,37 +26,45 @@
 import * as EnumExtensions from "../../src/extensions/enumExtensions";
 
 describe("EnumExtensions", () => {
-    it("getBitCount", () => {
-        const enum TestEnumType {
-            None = 0,
-            A = 1,
-            B = 1 << 1,
-            C = 1 << 2,
-            D = 1 << 3,
-            E = 1 << 4,
-            Negative1 = 1 << 31,
-        }
+    enum TestEnumType {
+        None = 0,
+        A = 1,
+        B = 1 << 1,
+        C = 1 << 2,
+        D = 1 << 3,
+        E = 1 << 4,
+        Negative1 = 1 << 31,
+    }
 
-        expect(EnumExtensions.getBitCount(TestEnumType.None), "TestEnumType.None").toBe(0);
-        expect(EnumExtensions.getBitCount(TestEnumType.A), "TestEnumType.A").toBe(1);
-        expect(EnumExtensions.getBitCount(TestEnumType.B), "TestEnumType.B").toBe(1);
-        expect(EnumExtensions.getBitCount(TestEnumType.C), "TestEnumType.C").toBe(1);
-        expect(EnumExtensions.getBitCount(TestEnumType.D), "TestEnumType.D").toBe(1);
-        expect(EnumExtensions.getBitCount(TestEnumType.E), "TestEnumType.E").toBe(1);
-        expect(EnumExtensions.getBitCount(TestEnumType.Negative1), "TestEnumType.Negative1").toBe(1);
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.B), "TestEnumType.A | TestEnumType.B").toBe(2);
-        expect(EnumExtensions.getBitCount(TestEnumType.B | TestEnumType.E), "TestEnumType.B | TestEnumType.E").toBe(2);
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.Negative1), "TestEnumType.A | TestEnumType.Negative1").toBe(2);
-        expect(EnumExtensions.getBitCount(TestEnumType.B | TestEnumType.C | TestEnumType.E), "TestEnumType.B | TestEnumType.C | TestEnumType.E").toBe(3);
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E), "TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E").toBe(4);
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E), "TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E").toBe(5);
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.C | TestEnumType.Negative1), "TestEnumType.A | TestEnumType.C | TestEnumType.Negative1").toBe(3);
+    describe("getBitCount - valid values", () => {
+        test.each<{ label: string; value: TestEnumType; bits: number }>([
+            { label: "TestEnumType.None", value: TestEnumType.None, bits: 0 },
+            { label: "TestEnumType.A", value: TestEnumType.A, bits: 1 },
+            { label: "TestEnumType.B", value: TestEnumType.B, bits: 1 },
+            { label: "TestEnumType.C", value: TestEnumType.C, bits: 1 },
+            { label: "TestEnumType.D", value: TestEnumType.D, bits: 1 },
+            { label: "TestEnumType.E", value: TestEnumType.E, bits: 1 },
+            { label: "TestEnumType.Negative1", value: TestEnumType.Negative1, bits: 1 },
+            { label: "TestEnumType.A | TestEnumType.B", value: TestEnumType.A | TestEnumType.B, bits: 2 },
+            { label: "TestEnumType.B | TestEnumType.E", value: TestEnumType.B | TestEnumType.E, bits: 2 },
+            { label: "TestEnumType.A | TestEnumType.Negative1", value: TestEnumType.A | TestEnumType.Negative1, bits: 2 },
+            { label: "TestEnumType.B | TestEnumType.C | TestEnumType.E", value: TestEnumType.B | TestEnumType.C | TestEnumType.E, bits: 3 },
+            { label: "TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E", value: TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E, bits: 4 },
+            { label: "TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E", value: TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E, bits: 5 },
+            { label: "TestEnumType.A | TestEnumType.C | TestEnumType.Negative1", value: TestEnumType.A | TestEnumType.C | TestEnumType.Negative1, bits: 3 },
+        ])("$label has $bits bit(s)", ({ value, bits }) => {
+            expect(EnumExtensions.getBitCount(value)).toBe(bits);
+        });
     });
 
-    it("getBitCount - invalid values", () => {
-        expect(EnumExtensions.getBitCount(undefined), "undefined").toBe(0);
-        expect(EnumExtensions.getBitCount(null), "null").toBe(0);
-        expect(EnumExtensions.getBitCount(<any>{}), "object").toBe(0);
-        expect(EnumExtensions.getBitCount(3.14), "floating point number 3.14").toBe(0);
+    describe("getBitCount - invalid values returns 0", () => {
+        test.each<{ label: string; value: unknown }>([
+            { label: "undefined", value: undefined },
+            { label: "null", value: null },
+            { label: "object", value: {} },
+            { label: "floating point 3.14", value: 3.14 },
+        ])("$label", ({ value }) => {
+            expect(EnumExtensions.getBitCount(value as number)).toBe(0);
+        });
     });
 });
