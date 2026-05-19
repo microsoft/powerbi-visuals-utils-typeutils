@@ -1,5 +1,5 @@
 # Microsoft Power BI visuals TypeUtils
-![Build](https://github.com/microsoft/powerbi-visuals-utils-typeutils/workflows/Build/badge.svg) [![npm version](https://img.shields.io/npm/v/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils) [![npm](https://img.shields.io/npm/dm/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils)
+[![Build](https://github.com/microsoft/powerbi-visuals-utils-typeutils/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/microsoft/powerbi-visuals-utils-typeutils/actions/workflows/build.yml) [![npm version](https://img.shields.io/npm/v/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils) [![npm](https://img.shields.io/npm/dm/powerbi-visuals-utils-typeutils.svg)](https://www.npmjs.com/package/powerbi-visuals-utils-typeutils)
 
 > TypeUtils is a set of functions and classes in order to extend the basic types for Power BI custom visuals
 
