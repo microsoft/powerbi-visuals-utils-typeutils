@@ -37,26 +37,26 @@ describe("EnumExtensions", () => {
             Negative1 = 1 << 31,
         }
 
-        expect(EnumExtensions.getBitCount(TestEnumType.None)).toBe(0, "TestEnumType.None");
-        expect(EnumExtensions.getBitCount(TestEnumType.A)).toBe(1, "TestEnumType.A");
-        expect(EnumExtensions.getBitCount(TestEnumType.B)).toBe(1, "TestEnumType.B");
-        expect(EnumExtensions.getBitCount(TestEnumType.C)).toBe(1, "TestEnumType.C");
-        expect(EnumExtensions.getBitCount(TestEnumType.D)).toBe(1, "TestEnumType.D");
-        expect(EnumExtensions.getBitCount(TestEnumType.E)).toBe(1, "TestEnumType.E");
-        expect(EnumExtensions.getBitCount(TestEnumType.Negative1)).toBe(1, "TestEnumType.Negative1");
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.B)).toBe(2, "TestEnumType.A | TestEnumType.B");
-        expect(EnumExtensions.getBitCount(TestEnumType.B | TestEnumType.E)).toBe(2, "TestEnumType.B | TestEnumType.E");
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.Negative1)).toBe(2, "TestEnumType.A | TestEnumType.Negative1");
-        expect(EnumExtensions.getBitCount(TestEnumType.B | TestEnumType.C | TestEnumType.E)).toBe(3, "TestEnumType.B | TestEnumType.C | TestEnumType.E");
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E)).toBe(4, "TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E");
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E)).toBe(5, "TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E");
-        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.C | TestEnumType.Negative1)).toBe(3, "TestEnumType.A | TestEnumType.C | TestEnumType.Negative1");
+        expect(EnumExtensions.getBitCount(TestEnumType.None), "TestEnumType.None").toBe(0);
+        expect(EnumExtensions.getBitCount(TestEnumType.A), "TestEnumType.A").toBe(1);
+        expect(EnumExtensions.getBitCount(TestEnumType.B), "TestEnumType.B").toBe(1);
+        expect(EnumExtensions.getBitCount(TestEnumType.C), "TestEnumType.C").toBe(1);
+        expect(EnumExtensions.getBitCount(TestEnumType.D), "TestEnumType.D").toBe(1);
+        expect(EnumExtensions.getBitCount(TestEnumType.E), "TestEnumType.E").toBe(1);
+        expect(EnumExtensions.getBitCount(TestEnumType.Negative1), "TestEnumType.Negative1").toBe(1);
+        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.B), "TestEnumType.A | TestEnumType.B").toBe(2);
+        expect(EnumExtensions.getBitCount(TestEnumType.B | TestEnumType.E), "TestEnumType.B | TestEnumType.E").toBe(2);
+        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.Negative1), "TestEnumType.A | TestEnumType.Negative1").toBe(2);
+        expect(EnumExtensions.getBitCount(TestEnumType.B | TestEnumType.C | TestEnumType.E), "TestEnumType.B | TestEnumType.C | TestEnumType.E").toBe(3);
+        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E), "TestEnumType.A | TestEnumType.C | TestEnumType.D | TestEnumType.E").toBe(4);
+        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E), "TestEnumType.A | TestEnumType.B | TestEnumType.C | TestEnumType.D | TestEnumType.E").toBe(5);
+        expect(EnumExtensions.getBitCount(TestEnumType.A | TestEnumType.C | TestEnumType.Negative1), "TestEnumType.A | TestEnumType.C | TestEnumType.Negative1").toBe(3);
     });
 
     it("getBitCount - invalid values", () => {
-        expect(EnumExtensions.getBitCount(undefined)).toBe(0, "undefined");
-        expect(EnumExtensions.getBitCount(null)).toBe(0, "null");
-        expect(EnumExtensions.getBitCount(<any>{})).toBe(0, "object");
-        expect(EnumExtensions.getBitCount(3.14)).toBe(0, "floating point number 3.14");
+        expect(EnumExtensions.getBitCount(undefined), "undefined").toBe(0);
+        expect(EnumExtensions.getBitCount(null), "null").toBe(0);
+        expect(EnumExtensions.getBitCount(<any>{}), "object").toBe(0);
+        expect(EnumExtensions.getBitCount(3.14), "floating point number 3.14").toBe(0);
     });
 });
