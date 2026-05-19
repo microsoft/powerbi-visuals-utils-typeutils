@@ -328,4 +328,49 @@ describe("ArrayExtensions", () => {
             expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true)).toBe(false, "checking if in decending order");
         });
     });
+
+    // Tests covering nullable return types introduced in 7.0.0
+    describe("nullable return types (7.0.0)", () => {
+        it("findWithId returns undefined when id is not found", () => {
+            const array: TestIdType[] = [{ id: 1 }, { id: 2 }];
+            expect(ArrayExtensions.findWithId(array, 1)).toEqual({ id: 1 });
+            expect(ArrayExtensions.findWithId(array, 99)).toBeUndefined();
+            expect(ArrayExtensions.findWithId<TestIdType>([], 1)).toBeUndefined();
+        });
+
+        it("findItemWithName returns undefined when name is not found", () => {
+            const array: TestNamedType[] = [{ name: "a" }, { name: "b" }];
+            expect(ArrayExtensions.findItemWithName(array, "a")).toEqual({ name: "a" });
+            expect(ArrayExtensions.findItemWithName(array, "missing")).toBeUndefined();
+            expect(ArrayExtensions.findItemWithName<TestNamedType>([], "a")).toBeUndefined();
+        });
+
+        it("emptyToNull returns null for empty array, original array otherwise", () => {
+            expect(ArrayExtensions.emptyToNull([])).toBeNull();
+            const arr = [1, 2];
+            expect(ArrayExtensions.emptyToNull(arr)).toBe(arr);
+        });
+    });
+
+    // Tests for null/undefined input safety after type signatures were widened in 7.0.0
+    describe("null/undefined input safety (7.0.0)", () => {
+        it("clear does not throw on null or undefined", () => {
+            expect(() => ArrayExtensions.clear(null)).not.toThrow();
+            expect(() => ArrayExtensions.clear(undefined)).not.toThrow();
+        });
+
+        it("clear empties the array in-place", () => {
+            const array = [1, 2, 3];
+            ArrayExtensions.clear(array);
+            expect(array).toEqual([]);
+        });
+
+        it("isUndefinedOrEmpty handles all cases", () => {
+            expect(ArrayExtensions.isUndefinedOrEmpty(null)).toBe(true);
+            expect(ArrayExtensions.isUndefinedOrEmpty(undefined)).toBe(true);
+            expect(ArrayExtensions.isUndefinedOrEmpty([])).toBe(true);
+            expect(ArrayExtensions.isUndefinedOrEmpty([1])).toBe(false);
+            expect(ArrayExtensions.isUndefinedOrEmpty([null, undefined])).toBe(false);
+        });
+    });
 });
