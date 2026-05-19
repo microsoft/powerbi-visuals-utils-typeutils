@@ -18,6 +18,7 @@ Common scripts:
 | `npm test` | Run the full Vitest suite once (used by CI) |
 | `npm run test:watch` | Run Vitest in watch mode — re-runs affected tests on file change |
 | `npm run test:coverage` | Run Vitest once and produce a coverage report under `coverage/` |
+| `npm run test:typecheck` | Type-check the `test/` tree with TypeScript using `test/tsconfig.json` (run on CI) |
 | `npm run lint` | Lint the codebase with ESLint (flat config in `eslint.config.mjs`) |
 | `npm run lint:fix` | Auto-fix lint issues where possible |
 
