@@ -1,10 +1,13 @@
 ## 7.0.0
-* Migrated test runner from Karma to Vitest and added coverage reporting.
-* Upgraded linting to ESLint 10 with flat config (`eslint.config.js`) and updated TypeScript ESLint tooling.
-* Modernized TypeScript configuration for ES2020 + `bundler` module resolution with strict mode compatibility settings.
-* Updated GitHub Actions workflows to current actions (`checkout@v4`, `setup-node@v4`) and Node.js 20/22 CI matrix.
+* **Migrated test runner from Karma + Jasmine to Vitest** with V8 coverage provider; removed 15+ Karma/Webpack-related dependencies (karma, karma-*, webpack, ts-loader, playwright-chromium, jasmine, ts-node, etc.).
+* **Breaking change:** updated public API return types to reflect actual nullability. Functions that could return `undefined` or `null` now declare it explicitly (e.g. `findWithId<T>(): T | undefined`, `emptyToNull<T>(): T[] | null`, `regExpExtensions.run(): RegExpExecArray | null`, `inherit<T extends object>()`).
+* **Breaking change:** `Object.create()` is now used in `prototype.inherit()` instead of a custom constructor wrapper. The `T` parameter now must extend `object`.
+* Upgraded linting to ESLint 10 with flat config (`eslint.config.mjs`, ESM) and updated TypeScript ESLint tooling to v8.
+* Modernized TypeScript configuration: TypeScript 6, `module`/`target` raised to `ES2020`, `moduleResolution` changed from deprecated `"node"` to `"bundler"`, enabled `strict` mode (with `strictNullChecks`/`strictPropertyInitialization` off as pragmatic step). Removed unused `experimentalDecorators` and `emitDecoratorMetadata`.
+* Updated GitHub Actions workflows to current versions (`checkout@v4`, `setup-node@v4`) with npm cache; CI matrix raised to Node.js 20.x/22.x.
+* Custom `codeql-analysis.yml` workflow removed in favor of GitHub default Code scanning setup (configured at the repository level).
 * Added Dependabot configuration for npm and GitHub Actions dependency update automation.
-* Updated major development dependencies (TypeScript 6, Vitest 4, ESLint 10, `powerbi-visuals-api` 5.11.0).
+* Updated runtime peer: `powerbi-visuals-api` ^5.11.0.
 
 
 ## 6.0.3
