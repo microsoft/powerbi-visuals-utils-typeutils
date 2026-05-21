@@ -1,8 +1,8 @@
-const js = require("@eslint/js");
-const tsPlugin = require("@typescript-eslint/eslint-plugin");
-const powerbiVisualsPlugin = require("eslint-plugin-powerbi-visuals");
+import js from "@eslint/js";
+import tsPlugin from "@typescript-eslint/eslint-plugin";
+import powerbiVisualsPlugin from "eslint-plugin-powerbi-visuals";
 
-module.exports = [
+export default [
     {
         ignores: [
             "node_modules/**",
@@ -10,7 +10,7 @@ module.exports = [
             "coverage/**",
             "test/**",
             "lib/**",
-            "eslint.config.js"
+            "eslint.config.mjs"
         ]
     },
     js.configs.recommended,
@@ -21,7 +21,7 @@ module.exports = [
         languageOptions: {
             parserOptions: {
                 project: "./tsconfig.json",
-                tsconfigRootDir: __dirname
+                tsconfigRootDir: import.meta.dirname
             }
         },
         rules: {
@@ -29,7 +29,6 @@ module.exports = [
             "@typescript-eslint/explicit-module-boundary-types": "off",
             "@typescript-eslint/no-explicit-any": "off",
             "@typescript-eslint/no-inferrable-types": "off",
-            "@typescript-eslint/no-var-requires": "off",
             // New in modern ESLint recommended; disabled to avoid unrelated code churn in this migration.
             "no-useless-assignment": "off"
         }

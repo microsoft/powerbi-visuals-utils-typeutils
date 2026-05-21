@@ -227,7 +227,7 @@ describe("ArrayExtensions", () => {
 
     describe("isArrayOrInheritedArray", () => {
         it("array", () => {
-            let emptyArray = [];
+            let emptyArray: unknown[] = [];
             let nonEmptyArray = [1, 2, 3, 4, 5];
 
             expect(ArrayExtensions.isArrayOrInheritedArray(emptyArray)).toBe(true);
@@ -266,13 +266,13 @@ describe("ArrayExtensions", () => {
         it("isSorted - array with length 0", () => {
             let values: string[] = [];
 
-            expect(ArrayExtensions.isSorted(values, StringLengthComparer)).toBe(true, "an empty array is always sorted");
+            expect(ArrayExtensions.isSorted(values, StringLengthComparer), "an empty array is always sorted").toBe(true);
         });
 
         it("isSorted - array with length 1", () => {
             let values: string[] = ["first"];
 
-            expect(ArrayExtensions.isSorted(values, StringLengthComparer)).toBe(true, "an array of single element is always sorted");
+            expect(ArrayExtensions.isSorted(values, StringLengthComparer), "an array of single element is always sorted").toBe(true);
         });
 
         it("isSorted - array sorted", () => {
@@ -295,37 +295,82 @@ describe("ArrayExtensions", () => {
 
         it("isSortedNumeric - array with length 0", () => {
             let values: number[] = [];
-            expect(ArrayExtensions.isSortedNumeric(values)).toBe(true, "an empty array is in default (ascending) order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false)).toBe(true, "an empty array is in ascending order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true)).toBe(true, "an empty array is also in descending order");
+            expect(ArrayExtensions.isSortedNumeric(values), "an empty array is in default (ascending) order").toBe(true);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false), "an empty array is in ascending order").toBe(true);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true), "an empty array is also in descending order").toBe(true);
         });
 
         it("isSortedNumeric - array with length 1", () => {
             let values: number[] = [111];
-            expect(ArrayExtensions.isSortedNumeric(values)).toBe(true, "an array of single element is in default (ascending) order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false)).toBe(true, "an array of single element is in ascending order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true)).toBe(true, "an array of single element is also in descending order");
+            expect(ArrayExtensions.isSortedNumeric(values), "an array of single element is in default (ascending) order").toBe(true);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false), "an array of single element is in ascending order").toBe(true);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true), "an array of single element is also in descending order").toBe(true);
         });
 
         it("isSortedNumeric - array in ascending order", () => {
             let values: number[] = [1, 3, 3, 7];
-            expect(ArrayExtensions.isSortedNumeric(values)).toBe(true, "checking if in default (ascending) order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false)).toBe(true, "checking if in ascending order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true)).toBe(false, "checking if in descending order");
+            expect(ArrayExtensions.isSortedNumeric(values), "checking if in default (ascending) order").toBe(true);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false), "checking if in ascending order").toBe(true);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true), "checking if in descending order").toBe(false);
         });
 
         it("isSortedNumeric - array in descending order", () => {
             let values: number[] = [1, -3, -3, -7];
-            expect(ArrayExtensions.isSortedNumeric(values)).toBe(false, "checking if in default (ascending) order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false)).toBe(false, "checking if in ascending order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true)).toBe(true, "checking if in decending order");
+            expect(ArrayExtensions.isSortedNumeric(values), "checking if in default (ascending) order").toBe(false);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false), "checking if in ascending order").toBe(false);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true), "checking if in decending order").toBe(true);
         });
 
         it("isSortedNumeric - array not in any order", () => {
             let values: number[] = [3, 0, 6, 2, 4, 7, 0, 0];
-            expect(ArrayExtensions.isSortedNumeric(values)).toBe(false, "checking if in default (ascending) order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false)).toBe(false, "checking if in ascending order");
-            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true)).toBe(false, "checking if in decending order");
+            expect(ArrayExtensions.isSortedNumeric(values), "checking if in default (ascending) order").toBe(false);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ false), "checking if in ascending order").toBe(false);
+            expect(ArrayExtensions.isSortedNumeric(values, /* descendingOrder */ true), "checking if in decending order").toBe(false);
+        });
+    });
+
+    // Tests covering nullable return types introduced in 7.0.0
+    describe("nullable return types (7.0.0)", () => {
+        it("findWithId returns undefined when id is not found", () => {
+            const array: TestIdType[] = [{ id: 1 }, { id: 2 }];
+            expect(ArrayExtensions.findWithId(array, 1)).toEqual({ id: 1 });
+            expect(ArrayExtensions.findWithId(array, 99)).toBeUndefined();
+            expect(ArrayExtensions.findWithId<TestIdType>([], 1)).toBeUndefined();
+        });
+
+        it("findItemWithName returns undefined when name is not found", () => {
+            const array: TestNamedType[] = [{ name: "a" }, { name: "b" }];
+            expect(ArrayExtensions.findItemWithName(array, "a")).toEqual({ name: "a" });
+            expect(ArrayExtensions.findItemWithName(array, "missing")).toBeUndefined();
+            expect(ArrayExtensions.findItemWithName<TestNamedType>([], "a")).toBeUndefined();
+        });
+
+        it("emptyToNull returns null for empty array, original array otherwise", () => {
+            expect(ArrayExtensions.emptyToNull([])).toBeNull();
+            const arr = [1, 2];
+            expect(ArrayExtensions.emptyToNull(arr)).toBe(arr);
+        });
+    });
+
+    // Tests for null/undefined input safety after type signatures were widened in 7.0.0
+    describe("null/undefined input safety (7.0.0)", () => {
+        it("clear does not throw on null or undefined", () => {
+            expect(() => ArrayExtensions.clear(null)).not.toThrow();
+            expect(() => ArrayExtensions.clear(undefined)).not.toThrow();
+        });
+
+        it("clear empties the array in-place", () => {
+            const array = [1, 2, 3];
+            ArrayExtensions.clear(array);
+            expect(array).toEqual([]);
+        });
+
+        it("isUndefinedOrEmpty handles all cases", () => {
+            expect(ArrayExtensions.isUndefinedOrEmpty(null)).toBe(true);
+            expect(ArrayExtensions.isUndefinedOrEmpty(undefined)).toBe(true);
+            expect(ArrayExtensions.isUndefinedOrEmpty([])).toBe(true);
+            expect(ArrayExtensions.isUndefinedOrEmpty([1])).toBe(false);
+            expect(ArrayExtensions.isUndefinedOrEmpty([null, undefined])).toBe(false);
         });
     });
 });

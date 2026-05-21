@@ -4,7 +4,6 @@
   "description": "TypeUtils",
   "main": "lib/index.js",
   "module": "lib/index.js",
-  "jsnext:main": "lib/index.js",
   "types": "lib/index.d.ts",
   "sideEffects": false,
   "repository": {
@@ -24,10 +23,11 @@
     "lib"
   ],
   "scripts": {
-    "build:map": "tsc --sourceMap",
     "build": "tsc",
-    "test": "vitest run --coverage",
+    "test": "vitest run",
     "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:typecheck": "tsc -p test/tsconfig.json --noEmit",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -41,8 +41,5 @@
     "powerbi-visuals-api": "^5.11.0",
     "typescript": "^6.0.3",
     "vitest": "^4.1.6"
-  },
-  "optionalDependencies": {
-    "fsevents": "*"
   }
 }
