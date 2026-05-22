@@ -55,7 +55,7 @@ describe("Double", () => {
         const positivePowers = [1E0, 1E1, 1E2, 1E3, 1E4, 1E5, 1E6, 1E7, 1E8, 1E9, 1E10, 1E11, 1E12, 1E13, 1E14, 1E15, 1E16, 1E17, 1E18, 1E19, 1E20, 1E21, 1E22, 1E23, 1E24, 1E25, 1E26, 1E27, 1E28, 1E29, 1E30, 1E31, 1E32];
         const negativePowers = [1E0, 1E-1, 1E-2, 1E-3, 1E-4, 1E-5, 1E-6, 1E-7, 1E-8, 1E-9, 1E-10, 1E-11, 1E-12, 1E-13, 1E-14, 1E-15, 1E-16, 1E-17, 1E-18, 1E-19, 1E-20, 1E-21, 1E-22, 1E-23, 1E-24, 1E-25, 1E-26, 1E-27, 1E-28, 1E-29, 1E-30, 1E-31, 1E-32];
         for (let i = 0; i < 33; i++) {
-            expect(Double.log10(negativePowers[i])).toBe(-i);
+            expect(Double.log10(negativePowers[i])).toBe(i === 0 ? 0 : -i);
             expect(Double.log10(positivePowers[i])).toBe(i);
         }
 

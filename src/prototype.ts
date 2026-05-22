@@ -26,12 +26,9 @@
 /**
  * Returns a new object with the provided obj as its prototype.
  */
-export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    function wrapCtor(): void { }
-    wrapCtor.prototype = obj;
+export function inherit<T extends object>(obj: T, extension?: (inherited: T) => void): T {
 
-    const inherited = new wrapCtor();
+    const inherited = Object.create(obj) as T;
 
     if (extension)
         extension(inherited);
@@ -43,7 +40,7 @@ export function inherit<T>(obj: T, extension?: (inherited: T) => void): T {
  * Returns a new object with the provided obj as its prototype
  * if, and only if, the prototype has not been previously set
  */
-export function inheritSingle<T>(obj: T): T {
+export function inheritSingle<T extends object>(obj: T): T {
     const proto = Object.getPrototypeOf(obj);
     if (proto === Object.prototype || proto === Array.prototype)
         obj = inherit(obj);
@@ -56,13 +53,13 @@ export function inheritSingle<T>(obj: T): T {
  * @return A new array with those values overriden
  * or undefined if no overrides are necessary.
  */
-export function overrideArray<T, TArray>(prototype: TArray, override: (T) => T): TArray {
+export function overrideArray<T, TArray extends T[]>(prototype: TArray, override: (value: T) => T | undefined): TArray | undefined {
     if (!prototype)
         return;
 
-    let overwritten: TArray;
+    let overwritten: TArray | undefined;
 
-    for (let i = 0, len = (<T[]><any>prototype).length; i < len; i++) {
+    for (let i = 0, len = prototype.length; i < len; i++) {
         const value = override(prototype[i]);
         if (value) {
             if (!overwritten)
