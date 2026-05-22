@@ -1,14 +1,21 @@
 ## 7.0.0
-* **Migrated test runner from Karma + Jasmine to Vitest** with V8 coverage provider; removed 15+ Karma/Webpack-related dependencies (karma, karma-*, webpack, ts-loader, playwright-chromium, jasmine, ts-node, etc.).
-* **Breaking change:** updated public API return types to reflect actual nullability. Functions that could return `undefined` or `null` now declare it explicitly (e.g. `findWithId<T>(): T | undefined`, `emptyToNull<T>(): T[] | null`, `regExpExtensions.run(): RegExpExecArray | null`, `inherit<T extends object>()`).
-* **Breaking change:** `Object.create()` is now used in `prototype.inherit()` instead of a custom constructor wrapper. The `T` parameter now must extend `object`.
-* Upgraded linting to ESLint 10 with flat config (`eslint.config.mjs`, ESM) and updated TypeScript ESLint tooling to v8.
-* Modernized TypeScript configuration: TypeScript 6, `module`/`target` raised to `ES2020`, `moduleResolution` changed from deprecated `"node"` to `"bundler"`, enabled `strict` mode (with `strictNullChecks`/`strictPropertyInitialization` off as pragmatic step). Removed unused `experimentalDecorators` and `emitDecoratorMetadata`.
-* Updated GitHub Actions workflows to current versions (`checkout@v4`, `setup-node@v4`) with npm cache; CI matrix raised to Node.js 20.x/22.x.
-* Custom `codeql-analysis.yml` workflow removed in favor of GitHub default Code scanning setup (configured at the repository level).
-* Added Dependabot configuration for npm and GitHub Actions dependency update automation.
-* Updated runtime peer: `powerbi-visuals-api` ^5.11.0.
-
+ 
+### Breaking changes
+* `arrayExtensions.findWithId<T>()` and `findItemWithName<T>()` now return `T | undefined` instead of `T`.
+* `arrayExtensions.emptyToNull<T>()` now returns `T[] | null` instead of `T[]`.
+* `arrayExtensions.clear()` and `isUndefinedOrEmpty()` now accept `unknown[] | null | undefined`.
+* `regExpExtensions.run()` now returns `RegExpExecArray | null` instead of `RegExpExecArray`.
+* `prototype.inherit<T>()` now constrains `T` to `extends object` and is implemented via `Object.create()`.
+ 
+### Changed
+* `powerbi-visuals-api` peer updated to ^5.11.0.
+* Minimum supported Node.js for development raised to 20.x.
+ 
+### Infrastructure
+* Test runner replaced: Karma + Jasmine → Vitest with V8 coverage.
+* Lint stack upgraded to ESLint 10 (flat config) with TypeScript ESLint 8.
+* TypeScript 4.x → 6.
+* Custom CodeQL workflow removed in favor of GitHub default Code scanning setup.
 
 ## 6.0.3
 * powerbi-visuals-api update to 5.9.0
